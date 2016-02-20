@@ -1,4 +1,6 @@
-My Awesome Book
+Veeam Backup & Replication Best Practices for VMware
 =======
 
-This file file serves as your book's preface, a great place to describe your book's content and ideas.
+Version 8.0
+
+November 2015
