@@ -25,7 +25,7 @@
    * [Veeam Explorers](resource_planning/veeam_explorers.md)
    * [Interaction with vSphere](resource_planning/interaction_with_vsphere.md)
 * [Job Configuration](job_configuration/README.md)
-   * [Veeam Backup Methods](job_configuration/backup_methods.md)
+   * [Backup Methods](job_configuration/backup_methods.md)
    * [Encryption](job_configuration/encryption.md)
    * [Deduplication and Compression](job_configuration/deduplication_and_compression.md)
    * [Backup Job](job_configuration/backup_job.md)
