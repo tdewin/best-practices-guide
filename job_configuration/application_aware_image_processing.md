@@ -6,20 +6,17 @@ created. Two methods are available for bringing VM file system and
 applications into consistent state: VMware Tools quiescence and Veeam
 Application-Aware Image Processing (utilizing Windows VSS). Key features
 of both methods are illustrated by the following table:
-
-  Feature 
   
-  VMware Tools Quiescence               Veeam Application-Aware Image Processing
-  ----------------------------------------------------------------------------------- ------------------------------------- ------------------------------------------
-  Support for consistent backup on Windows guest                                      Yes                                   Yes
-  **Sync** driver for Linux guest                                                     Yes                                   No
-  Support for application-aware backup                                                Limited                               Yes
-  Pre-VSS preparation for specific applications (e.g. Oracle)                         No                                    Yes
-  Support for application log truncation (Microsoft SQL Server and Exchange Server)   No                                    Yes
-  Support for scripts                                                                 Yes (need to be placed on VM guest)   Yes (can be centrally distributed)
-  Interaction with user via UI                                                        Not needed                            Not needed
-  Error reporting                                                                     Within VM guest OS                    Centralized, on Veeam backup server
-  Stability                                                                           Good                                  Very good
+  | Feature | VMware Tools Quiescence | Veeam Application-Aware Image Processing |
+| -- | -- | -- |
+| Support for consistent backup on Windows guest | Yes | Yes |
+| **Sync** driver for Linux guest | Yes | No |
+| Support for application-aware backup | Limited | Yes |
+| Pre-VSS preparation for specific applications (e.g. Oracle) | No | Yes |
+| Support for application log truncation (Microsoft SQL Server and Exchange Server) | No | Yes |
+| Support for scripts | Yes (need to be placed on VM guest) | Yes (can be centrally distributed) |
+| Interaction with user via UI | Not needed | Not needed |
+| Error reporting | Within VM guest OS | Centralized, on Veeam backup server |
 
 ### How Veeam Guest OS Processing Works
 
