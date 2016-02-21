@@ -13,7 +13,7 @@
 * [Resource Planning](resource_planning/resourceplanning.md)
    * [DNS and Name Resolution](resource_planning/dns_and_name_resolution.md)
    * [Veeam Backup Server](resource_planning/veeam_backup_server.md)
-   * [Veeam Backup & Replication Database](resource_planning/veeam_backup_&_replication_database.md)
+   * [Veeam Backup & Replication Database](resource_planning/veeam_backup_and_replication_database.md)
    * [Protecting Veeam Backup & Replication Configuration](resource_planning/protecting_veeam_backup_&_replication_configuratio.md)
    * [Veeam Backup Enterprise Manager](resource_planning/veeam_backup_enterprise_manager.md)
    * [Search Server and Veeam Indexing](resource_planning/search_server_and_veeam_indexing.md)
