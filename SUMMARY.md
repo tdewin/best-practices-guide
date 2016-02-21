@@ -16,7 +16,7 @@
    * [Veeam Backup & Replication Database](resource_planning/veeam_backup_and_replication_database.md)
    * [Protecting Veeam Backup & Replication Configuration](resource_planning/protecting_veeam_backup_and_replication_config.md)
    * [Veeam Enterprise Manager](resource_planning/veeam_enterprise_manager.md)
-   * [Search Server and Veeam Indexing](resource_planning/search_server_and_indexing.md)
+   * [Search Server and Indexing](resource_planning/search_server_and_indexing.md)
    * [Proxy Server and Transport Modes](resource_planning/proxy_server_and_transport_modes.md)
    * [Repository Server](resource_planning/repository_server.md)
    * [vPower NFS and Virtual Lab](resource_planning/vpower_nfs_and_virtual_lab.md)
