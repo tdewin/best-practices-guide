@@ -31,7 +31,7 @@
    * [Backup Job](job_configuration/backup_job.md)
    * [Backup Copy Job](job_configuration/backup_copy_job.md)
    * [Replication Job](job_configuration/replication_job.md)
-   * [Application-Aware Image Processing](job_configuration/application-aware_image_processing.md)
+   * [Application-Aware Image Processing](job_configuration/application_aware_image_processing.md)
 * [Bridging the Availability Gap](availability_project/bridging_the_availability_gap.md)
    * [Assessment](availability_project/assessment.md)
    * [Small POC – Getting Started with the Interface](availability_project/small_poc__getting_started_with_the_interface.md)
