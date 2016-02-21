@@ -23,6 +23,7 @@
    * [WAN Acceleration](resource_planning/wan_acceleration.md)
    * [Tape Support](resource_planning/tape_support.md)
    * [Veeam Explorers](resource_planning/veeam_explorers.md)
+   * * [Interaction with vSphere](resource_planning/interaction_with_vsphere.md)
 * [Job Configuration](job_configuration/README.md)
    * [Veeam Backup Methods](job_configuration/veeam_backup_methods.md)
    * [Encryption](job_configuration/encryption.md)
