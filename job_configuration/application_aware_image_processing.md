@@ -56,10 +56,17 @@ VMs.
 
 To select the necessary options, refer to the table below.
 
-  VM guest OS type                                                                             Guest OS processing is applicable   Use VMware Tools quiescence   VMware Tools quiescence with VMware Script processing   Use Veeam Application-Aware Processing   Use Veeam Application-Aware Processing and InGuest Scripts   Use Veeam InGuest Script Processing (Application Aware Processing disabled)
-  -------------------------------------------------------------------------------------------- ----------------------------------- ----------------------------- ------------------------------------------------------- ---------------------------------------- ------------------------------------------------------------ -----------------------------------------------------------------------------
-  Linux server (no applications)                                                               No                                  No                            No                                                      No                                       No                                                           No
-  Linux with applications                                                                      Yes                                 No                            No                                                      No                                       No                                                           Yes
+  | VM guest OS type | Linux server (no applications) | Linux with applications | 
+  
+  | Guest OS processing is applicable |
+  | Use VMware Tools quiescence |
+  | VMware Tools quiescence with VMware Script processing |
+  | Use Veeam Application-Aware Processing |
+  | Use Veeam Application-Aware Processing and InGuest Scripts |
+  | Use Veeam InGuest Script Processing (Application Aware Processing disabled) |
+  | -- | -- | -- | -- | -- | -- | -- |
+   No | No | No | No | No | No |
+  |Yes | No | No | No | Yes |
   Windows (no VSS-aware applications)                                                          Yes                                 No                            No                                                      No                                       Yes                                                          No
   Windows with VSS-aware applications                                                          Yes                                 No                            No                                                      Yes                                      No                                                           No
   Windows and VMware VSS-supported applications (without known user for Guest OS processing)   Yes                                 Yes                           No                                                      No                                       No                                                           No
