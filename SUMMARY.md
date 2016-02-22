@@ -45,7 +45,7 @@
    * [Instant VM Recovery](anatomy/instant_vm_recovery.md)
    * [Windows File-Level Restore](anatomy/windows_file-level_restore.md)
    * [Replication](anatomy/replication.md)
-* [Networking Diagrams](networking/README.md)
+* [Networking Diagrams](networking/readme.md)
    * [Veeam Backup Server](networking/veeam_backup_server.md)
    * [Infrastructure Servers](networking/infrastructure_servers.md)
    * [Veeam Backup Enterprise Manager](networking/veeam_backup_enterprise_manager.md)
