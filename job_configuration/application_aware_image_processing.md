@@ -56,21 +56,14 @@ VMs.
 
 To select the necessary options, refer to the table below.
 
-  | VM guest OS type | Linux server (no applications) | Linux with applications | 
-  
-  | Guest OS processing is applicable |
-  | Use VMware Tools quiescence |
-  | VMware Tools quiescence with VMware Script processing |
-  | Use Veeam Application-Aware Processing |
-  | Use Veeam Application-Aware Processing and InGuest Scripts |
-  | Use Veeam InGuest Script Processing (Application Aware Processing disabled) |
+  | VM guest OS type | Linux (with applications and known user for Guest OS processing)   | Windows and VMware VSS-supported applications (without known user for Guest OS processing) | Windows with VSS-aware applications  | Windows (no VSS-aware applications) | Linux with applications | Linux server (no applications) | 
   | -- | -- | -- | -- | -- | -- | -- |
-   No | No | No | No | No | No |
-  |Yes | No | No | No | Yes |
-  Windows (no VSS-aware applications)                                                          Yes                                 No                            No                                                      No                                       Yes                                                          No
-  Windows with VSS-aware applications                                                          Yes                                 No                            No                                                      Yes                                      No                                                           No
-  Windows and VMware VSS-supported applications (without known user for Guest OS processing)   Yes                                 Yes                           No                                                      No                                       No                                                           No
-  Linux (with applications and known user for Guest OS processing)                             Yes                                 No                            Yes                                                     No                                       No                                                           No
+  | Guest OS processing is applicable | Y | Y | Y | Y | Y | N |
+  | Use VMware Tools quiescence | N | Y | N | N | N | N |
+  | VMware Tools quiescence with VMware Script processing | Y | N | N | N | N | N |
+  | Enable Veeam Application-Aware Image Processing | N | N | Y | N | N | N |
+  | Enable Veeam Application-Aware Image Processing and InGuest Scripts | N | N | N | Y | N | N |
+  | Disable Veeam Application-Aware Image Processing | N | N | N | N | Y | N |
 
 To coordinate proper VSS and indexing activities, Veeam Backup &
 Replication deploys a small executable component inside a VM. It is
