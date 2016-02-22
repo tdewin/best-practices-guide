@@ -92,30 +92,26 @@ disabled application-aware image processing) and on the guest access
 method, you may need to supply access credentials for the guest OS, as
 described in the tables below.
 
-#### Guest Access Credentials for Windows OS {#guest-access-credentials-for-windows-os .pseudo4}
+#### Guest Access Credentials for Windows OS
 
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  Application-Aware Image Processing (AAIP)       Membership in the local Administrators group   Enter username as\                                                        UAC can be enabled   VMware Tools must be installed and up to date
-                                                                                                 *&lt;servername&gt;\\ Administrator* or *&lt;domain&gt;\\Administrator*                        
-  ----------------------------------------------- ---------------------------------------------- ------------------------------------------------------------------------- -------------------- -----------------------------------------------
-  Disabled (crash-consistent backup is created)   Not needed                                     N/A                                                                       Yes                  No
+| Application-Aware Image Processing (AAIP) | Using VMware Tools Quiescence | Using Veeam (guest access by VIX) | Using Veeam (guest access by VIX) | Using Veeam (guest access by Network) | Disabled (crash-consistent backup is created) |
+| -- | -- | -- | -- | -- | -- |
+| Membership in the local Administrators group | User account not needed | Yes | No | Yes | Not needed |
+| Enter username as *&lt;servername&gt;\\ Administrator* or *&lt;domain&gt;\\Administrator* | No | No | Yes | No | N/A |
+| UAC can be enabled | Yes | No | Yes | Yes | Yes |
+| VMware Tools must be installed and up to date | Yes | Yes | Yes | Yes | No |
 
-  Using Veeam (guest access by Network)           Yes                                            No                                                                        Yes                  Yes
 
-  Using Veeam (guest access by VIX)               No                                             Yes                                                                       Yes                  Yes
 
-  Using Veeam (guest access by VIX)               Yes                                            No                                                                        No                   Yes
 
-  Using VMware Tools Quiescence                   User account not needed                        No                                                                        Yes                  Yes
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#### Guest Access Credentials for Linux OS
 
-#### Guest Access Credentials for Linux OS {#guest-access-credentials-for-linux-os .pseudo4}
-
-  Linux guest OS processing                       Root user account         User requires sudoer rights   Certificate-based authentication is possible   VMware Tools must be installed and up to date
-  ----------------------------------------------- ------------------------- ----------------------------- ---------------------------------------------- -----------------------------------------------
-  Disabled (crash-consistent backup is created)   Not needed                No                            No                                             No
-  Using Veeam (guest access by Network)           Yes                       Yes                           Yes                                            Yes
-  Using VMware Tools Quiescence                   User account not needed   No                            No                                             Yes
+| Linux guest OS processing | Using VMware Tools Quiescence | Using Veeam (guest access via network) | Disabled (crash-consistent backup is created) |
+| -- | -- | -- | -- |
+| Root user account | No | Yes | No |
+| User requires `sudo` rights | No | Yes | No |
+| Certificate-based authentication available | No | Yes | No |
+| VMware Tools must be installed and up to date | Yes | Yes | No |
 
 **Tip:** To verify the credentials you supplied on the Guest Processing
 step of the job wizard, click **Test Now** button.
