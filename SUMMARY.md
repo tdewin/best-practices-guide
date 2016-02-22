@@ -39,7 +39,7 @@
    * [Example](availability_project/example.md)
    * [Enhanced POC](availability_project/enhanced_poc.md)
    * [Automation](availability_project/automation.md)
-* [Backup & Replication Anatomy](anatomy/README.md)
+* [Backup & Replication Anatomy](anatomy/readme.md)
    * [Backup](anatomy/backup.md)
    * [VM Restore](anatomy/vm_restore.md)
    * [Instant VM Recovery](anatomy/instant_vm_recovery.md)
