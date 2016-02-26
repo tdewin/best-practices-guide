@@ -31,7 +31,7 @@ Keep in mind that within larger datacenters, multiple definitions may apply. As 
 -   If storage integration is possible, the corresponding transport
     modes are preferred.
 
--   If the primary datastore runs on block protocols like Fiber Channel
+-   If the primary datastore runs on block protocols like Fibre Channel
     or iSCSI, then Direct SAN Access mode will provide the best
     performance (if all corresponding requirements are met).
 
@@ -63,7 +63,7 @@ backup proxy on same host (as described in the previous scenario).
     For VMs with low change rate, you can decrease the overhead of
     storage snapshot processing (faster as less data needs to be moved).
 
--   If the primary datastore is run on block protocols like Fiber
+-   If the primary datastore is run on block protocols like Fibre
     Channel or iSCSi, then Direct SAN Access mode will provide the best
     performance (if all corresponding requirements are met).
 
@@ -91,11 +91,11 @@ that scenario.
     ONE Change Rate Estimation report can help to identify them (faster
     as less data needs to be moved).
 
--   If the primary datastore is run on block protocols like Fiber
+-   If the primary datastore is run on block protocols like Fibre
     Channel or iSCSi, then Direct SAN Access mode will provide the best
     performance (if all corresponding requirements are met). For
     example, you can place one or multiple physical servers with access
-    to the Fiber Channel datastore at the local site and perform backups
+    to the Fibre Channel datastore at the local site and perform backups
     to multiple repositories. If you use thin-provisioned disks for the
     VMs, configuring several proxy servers for restore in the Virtual
     Appliance (Hot-Add) mode – per cluster - can help to increase
