@@ -19,6 +19,7 @@
    * [Proxy Servers and Transport Modes](resource_planning/proxy_server_and_transport_modes.md)
        * [Transport Modes](resource_planning/transport_modes.md)
            * [Direct SAN](resource_planning/direct_san.md)
+           * Virtual Appliance Mode
    * [Repository Server](resource_planning/repository_server.md)
    * [vPower NFS and Virtual Lab](resource_planning/vpower_nfs_and_virtual_lab.md)
    * [WAN Acceleration](resource_planning/wan_acceleration.md)
