@@ -1,6 +1,6 @@
 # vPower NFS and Virtual Lab
 
-### Virtual Lab Appliance Overview 
+## Virtual Lab Appliance Overview 
 
 The Virtual Lab appliance operates as a gateway for the layer of network
 address translation (NAT) between the Veeam backup server and the
@@ -16,7 +16,7 @@ networks are automatically added (temporarily) to the routing table on
 the Veeam backup server. To review the routing table, open a command
 prompt on the Veeam backup server and enter:
 
-route print -4
+`route print -4`
 
 You may run this command before and after starting the SureBackup job to
 compare the differences.
@@ -36,7 +36,7 @@ details:
 
 -   <http://helpcenter.veeam.com/backup/80/vsphere/>
 
-### How SureBackup Job Works
+## How SureBackup Job Works
 
 This section describes the processes in a SureBackup job.
 
@@ -44,7 +44,7 @@ First, standard vSwitches and port groups, or port groups on existing
 Distributed vSwitches are created during the Virtual Lab creation
 wizard; then the process goes as described below.
 
-#### Booting Virtual Lab Appliance 
+### Booting Virtual Lab Appliance 
 
 1.  Virtual Lab appliance configuration file is built and mapped to the
     Virtual Lab appliance as an ISO.
@@ -62,13 +62,13 @@ wizard; then the process goes as described below.
     static routes are pointing to the IP address of the Virtual
     Lab appliance.
 
-**Tip:** Earlier versions of Veeam Backup & Replication use VMware
+**Tip**: Earlier versions of Veeam Backup & Replication use VMware
 hardware version 4 for the virtual lab appliance. This limits the usable
 lab networks to 3. To add more networks/NICs, update Veeam to actual
 version and launch the Virtual Lab wizard again; this will re-create the
 Virtual Lab VM with the virtual hardware version defined in the VMX
-file: *%ProgramFiles%\\Veeam\\Backup and
-Replication\\Backup\\LiveCD\\drv\_va.vmx\
+file: `*%ProgramFiles%\\Veeam\\Backup and
+Replication\\Backup\\LiveCD\\drv\_va.vmx\`
 *Beginning with Veeam Backup & Replication 8 patch 1, the VMX file was
 updated to use virtual hardware v7. Another option is (for older Veeam
 versions) to update the Virtual Lab VM by VMware vSphere (Web) client to
@@ -76,7 +76,7 @@ at least virtual hardware v7. After upgrading the virtual hardware
 version (by Veeam wizard or manually) you can start the wizard again and
 create up to 9 virtual lab networks.
 
-#### Booting Virtual Machines 
+### Booting Virtual Machines 
 
 1.  Veeam publishes and registers VMs using Veeam vPower NFS from the
     repository containing the backup file.
@@ -107,41 +107,37 @@ configured for such VMs. This will slow down SureBackup jobs
 significantly. Therefore, it is always recommended to install VMware
 Tools on a verified VM.
 
-2.  VM testing begins (if enabled for the Application Group):
+###  VM testing
+(if enabled for the Application Group):
 
-    a.  **VMware Tools heartbeat** is used for verifying that the VM OS
-        is successfully started.
+1.  **VMware Tools heartbeat** is used for verifying that the VM OS is successfully started.
 
-    b.  **PING** tests are initiated based on the masquerading
-        network configuration. The ping is sent from the Veeam
-        backup server. Since the masquerade network is not part of the
-        Veeam backup server's own broadcast domain, the packet is sent
-        to the first hop matching this network. As the static route to
-        the masquerade networking was added after the boot of the
-        Virtual Lab appliance, this appliance will act as gateway
-        between the two components: Veeam backup server and isolated
-        virtual machine.
+2.  **PING** tests are initiated based on the masquerading
+network configuration. The ping is sent from the Veeam
+backup server. Since the masquerade network is not part of the
+Veeam backup server's own broadcast domain, the packet is sent
+to the first hop matching this network. As the static route to
+the masquerade networking was added after the boot of the
+Virtual Lab appliance, this appliance will act as gateway
+between the two components: Veeam backup server and isolated
+virtual machine.
 
-    c.  **Application-specific testing** using scripts is enabled based
-        on the roles assigned to a VM in the application
-        group configuration. The built-in roles will check corresponding
-        TCP ports for a given service, while additional testing is
-        available for the SQL Server (see the next section). TCP
-        requests are sent from the Veeam backup server, and the routing
-        to the virtual machine is handled by the Virtual Lab
-        proxy appliance.
+3.  **Application-specific testing** using scripts is enabled based on the roles assigned to a VM in the application
+group configuration. The built-in roles will check corresponding
+TCP ports for a given service, while additional testing is
+available for the SQL Server (see the next section). TCP
+requests are sent from the Veeam backup server, and the routing
+to the virtual machine is handled by the Virtual Lab
+proxy appliance.
 
-    d.  **CRC verification** is optionally available and is disabled
-        by default. If enabled, it will ensure all content of the backup
-        file is consistent with the hash values at the time they
-        were written. This consistency check is using the CRC algorithm
-        for hashing. Warning, this feature will read 100% of the data
-        from the backup file.
+4. **CRC verification** is optionally available and is disabled by default. If enabled, it will ensure all content of the backup file is consistent with the hash values at the time they were written. This consistency check is using the CRC algorithm for hashing.
 
-3.  Once all virtual machines within an application group have been
+**Note**: this feature will read 100% of the data from the backup file.
+
+Once all virtual machines within an application group have been
     successfully booted and verified, VMs from linked jobs may boot.
 
-#### Checking SQL Server Database Availability 
+### Checking SQL Server Database Availability 
 
 With Veeam Backup & Replication v8, a new Visual Basic script has been
 shipped with the product to allow for testing whether all databases on a
@@ -165,7 +161,7 @@ The script includes detailed comments that describe the exact behavior.
 
 ![](../media/image16.png)
 
-#### Creating Custom Roles 
+### Creating Custom Roles 
 
 Though there are a number of built-in tests intended for
 application-level testing, you may need to develop additional scripts
@@ -199,7 +195,7 @@ Another option for testing service availability with
 *Veeam.Backup.ConnectionTester.exe* is decribed in
 <http://www.veeam.com/kb1312>.
 
-#### Troubleshooting Mode 
+### Troubleshooting Mode 
 
 If you need to troubleshoot Virtual Lab, it is recommended to start
 sessions in the Troubleshooting Mode. For that:
@@ -229,7 +225,7 @@ Windows servers may change their network and firewall profiles to
 "Public". This may lead to application testing scripts not responding to
 TCP socket connections.
 
-### Virtual Lab in Complex Environments 
+## Virtual Lab in Complex Environments 
 
 When using standard vSwitches in the VMware vSphere infrastructure, the
 Virtual Lab proxy appliance and the isolated networks will run on the
