@@ -18,7 +18,7 @@ directly from these snapshots (without adding them to a proxy ESXi
 host), to transport data and to scan the storage systems for possible
 restore points in storage snapshots. Based on the supported storage
 protocol, this feature requires direct network connections or SAN
-connections (like iSCSI/Fiber Channel).
+connections (like iSCSI/Fibre Channel).
 
 **Note**: For more information, refer to the corresponding sections of
 this guide and Veeam Backup & Replication User guide.
