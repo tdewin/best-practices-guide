@@ -1,52 +1,52 @@
 # Sizing a Backup Proxy
 
+Getting the right amount of processing power is essential to achieving the RTPOs defined by the business. In this section, we will outline the recommendations to follow for appropriate sizing.
+
 ## Processing Resources 
 
 As per system requirements, a proxy requires 2 GB RAM plus 200MB for
 each concurrent task (VM disk to be processed).
 
 As described above, you can define the max concurrent tasks value in the
-backup proxy settings. On average, a task consumes 1 Core or 1 vCPU Core
-(for compression and encryption). Depending on the job setup and other
-settings, these numbers can vary. A PoC in the specific environment can
-help to estimate resource usage, especially if you need to fit into an
-existing budget.
+backup proxy settings. On average, a task consumes 1 physical core or 1 vCPU
+(for data reduction and encryption). Depending on the job settings, these numbers may vary slightly.
 
 -   If you double the proxy task count, that will, in general, decrease
     backup time window up to 50%.
 
 -   It is recommended to plan for some additional resources – for
     further growth and possible new features: for example, the RAM usage
-    for one proxy processing task should not be lower than 2 GB - to be
-    prepared for upcoming features.
+    for one proxy processing task should not be considered lower than 2 GB. This will help ensuring sufficient resources for features in future releases.
 
 As a rule of thumb, a proxy will need 1 CPU+2 GB RAM for each 30 VMs
 (with average change rate of 2-3 % at the block level) to fit into a
 8-hour backup window.
 
-#### Example: Calculating Overall Task Count  {#example-calculating-overall-task-count .pseudo4}
+## Calculating Overall Task Count
 
 Sample infrastructure has the following configuration:
 
 -   480 VMs
-
 -   48 TB used data
+-   Backup window: 8 hours
+-   Change rate: 5%
 
--   Backup window - 8 hours
+For that, the following calculation can be used as a starting point.
 
--   Daily change rate - 3%
+Using the "30 VMs per CPU core" rule, we get following result:
 
-For that, the following calculation can be used as a starting point:
+* $$480/30=16$$ CPU cores
+* Each CPU core must have 2 GB RAM:
+* $$16 * 2=32$$ GB RAM.
 
-30 VMs per CPU core (physical core or vCPU core) for a proxy. =&gt; 1
-proxy task slot (1 core, 2 GB RAM). =&gt; 16 cores for 480 VMs =&gt; 1
-server with 2x 8 core 32 GB RAM
+- Result: 
+**16 CPU cores and 32 GB RAM**.
+- For a physical server, it would be recommended to install dual CPUs with 8 cores each.
+- For virtual proxy servers, it is recommended to configure multiple proxies with maximum 8 vCPUs to avoid co-stop scheduling issues.
 
-If you need to achieve a 4 hour backup window, then double the resources
-=&gt; 2 server with 2x 8 cores 32GB RAM.
+If you need to achieve a 2x smaller backup window (4 hours), then you may double the resources for a total of **32 CPU cores and 64 GB RAM** - 2x the amount of compute power (possibly split across multiple servers).
 
-The same counts if you have two times bigger amount of data (with 3%
-change rate).
+The same rule applies if the change rate is 2x higher (10% change rate). To process a 2x increase in amount of changed data, it is also required to double the proxy resources.
 
 **Note:** Overall performance largely depends on the underlying storage
 and network infrastructure.
@@ -121,7 +121,7 @@ consumption and speed:
     replication jobs) where another is not mentioned in the
     documentation or this guide for specific cases.
 
--   **Antivirus Scanner** - see the corresponding section of
+-   **Antivirus** - see the corresponding section of
     this document.
 
 -   **3rd party applications** – it is not recommended to use an
