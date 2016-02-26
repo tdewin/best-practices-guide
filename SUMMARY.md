@@ -23,7 +23,7 @@
            * [Network Mode](resource_planning/network_mode.md)
            * [Backup from Storage Snapshots](resource_planning/backup_from_storage_snapshots.md)
        * [Selecting a Transport Mode](resource_planning/selecting_a_transport_mode.md)
-       * Sizing a Backup Proxy
+       * [Sizing a Backup Proxy](resource_planning/sizing_a_backup_proxy.md)
    * [Repository Server](resource_planning/repository_server.md)
    * [vPower NFS and Virtual Lab](resource_planning/vpower_nfs_and_virtual_lab.md)
    * [WAN Acceleration](resource_planning/wan_acceleration.md)
