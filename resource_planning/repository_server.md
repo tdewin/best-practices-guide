@@ -796,7 +796,7 @@ DDBoost libraries assumes low latency and reliable links.
 -   Seamless Veeam files transformations like synthetic full or forever
     forward incremental.
 
--   DDBoost can be used through Fiber Channel SAN, providing a totally
+-   DDBoost can be used through Fibre Channel SAN, providing a totally
     LAN-free backup solution. 
 
 For more details, refer to the DDBoost configuration guide by Rick
