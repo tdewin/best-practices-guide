@@ -35,20 +35,22 @@ For that, the following calculation can be used as a starting point.
 
 Using the "30 VMs per CPU core" rule, we get following result:
 
-* $$480/30=16$$ CPU cores
-* Each CPU core must have 2 GB RAM:
-* $$16 * 2=32$$ GB RAM.
+* 480 VMs / 30 VMs per core = 16 CPU cores
 
-- Result: 
+Each CPU core must have 2 GB RAM:
+
+* 16 CPU cores x 2 GB RAM = 32 GB RAM.
+
+Result: 
 **16 CPU cores and 32 GB RAM**.
-- For a physical server, it would be recommended to install dual CPUs with 8 cores each.
+- For a physical server, it is recommended to install dual CPUs with 8 cores each.
 - For virtual proxy servers, it is recommended to configure multiple proxies with maximum 8 vCPUs to avoid co-stop scheduling issues.
 
 If you need to achieve a 2x smaller backup window (4 hours), then you may double the resources for a total of **32 CPU cores and 64 GB RAM** - 2x the amount of compute power (possibly split across multiple servers).
 
 The same rule applies if the change rate is 2x higher (10% change rate). To process a 2x increase in amount of changed data, it is also required to double the proxy resources.
 
-**Note:** Overall performance largely depends on the underlying storage
+**Note:** Performance largely depends on the underlying storage
 and network infrastructure.
 
 Required processing resources may seem too high if compared with
