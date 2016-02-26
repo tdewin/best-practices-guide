@@ -23,3 +23,5 @@ their respective owners. Except as expressly provided in any written
 license agreement from Veeam, the furnishing of this document does not
 give you any license to these patents, trademarks, copyrights, or other
 intellectual property.*
+
+**Important!**   Please read the End User Software License Agreement before using the accompanying software program(s). Using any part of the software indicates that you accept the terms of the End User Software License Agreement.
