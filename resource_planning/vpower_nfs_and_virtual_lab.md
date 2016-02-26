@@ -267,4 +267,4 @@ failover and failback handling if the production site becomes
 unavailable. Alternatively, you can specify an unused network segment so
 that it does not overlap with any segment used in production.
 
-![](./media/image18.png)
+![](../media/image18.png)
