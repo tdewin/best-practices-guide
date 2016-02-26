@@ -67,9 +67,9 @@ hardware version 4 for the virtual lab appliance. This limits the usable
 lab networks to 3. To add more networks/NICs, update Veeam to actual
 version and launch the Virtual Lab wizard again; this will re-create the
 Virtual Lab VM with the virtual hardware version defined in the VMX
-file: `*%ProgramFiles%\\Veeam\\Backup and
-Replication\\Backup\\LiveCD\\drv\_va.vmx\`
-*Beginning with Veeam Backup & Replication 8 patch 1, the VMX file was
+file: `%ProgramFiles%\\Veeam\\Backup and
+Replication\\Backup\\LiveCD\\drv\_va.vmx\`.
+Beginning with Veeam Backup & Replication 8 patch 1, the VMX file was
 updated to use virtual hardware v7. Another option is (for older Veeam
 versions) to update the Virtual Lab VM by VMware vSphere (Web) client to
 at least virtual hardware v7. After upgrading the virtual hardware
@@ -78,11 +78,8 @@ create up to 9 virtual lab networks.
 
 ### Booting Virtual Machines 
 
-1.  Veeam publishes and registers VMs using Veeam vPower NFS from the
-    repository containing the backup file.
-
-**Note:** If the VMs to be booted in the Virtual Lab in an Application
-Group are replicas, this step will be skipped.
+1.  If the Application Group is based on backups,  Veeam publishes and registers VMs using Veeam vPower NFS from the
+    repository containing the backup file. The step is skipped, if the VMs are replicas.
 
 2.  Veeam reconfigures the VMs to connect to isolated port groups. If
     any NICs are connected to port groups that are not configured on the
@@ -107,8 +104,7 @@ configured for such VMs. This will slow down SureBackup jobs
 significantly. Therefore, it is always recommended to install VMware
 Tools on a verified VM.
 
-###  VM testing
-(if enabled for the Application Group):
+###  Testing Virtual Mac
 
 1.  **VMware Tools heartbeat** is used for verifying that the VM OS is successfully started.
 
