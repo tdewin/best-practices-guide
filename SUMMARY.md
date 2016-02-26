@@ -16,7 +16,7 @@
    * [Protecting Veeam Backup & Replication Configuration](resource_planning/protecting_veeam_backup_and_replication_config.md)
    * [Veeam Enterprise Manager](resource_planning/veeam_enterprise_manager.md)
    * [Search Server and Indexing](resource_planning/search_server_and_indexing.md)
-   * [Proxy Servers and Transport Modes](resource_planning/proxy_server_and_transport_modes.md)
+   * [Proxy Servers](resource_planning/proxy_server_and_transport_modes.md)
        * [Transport Modes](resource_planning/transport_modes.md)
            * [Direct SAN](resource_planning/direct_san.md)
            * [Virtual Appliance Mode](resource_planning/virtual_appliance_mode.md)
