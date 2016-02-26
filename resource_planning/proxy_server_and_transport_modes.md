@@ -110,7 +110,3 @@ Veeam backup proxy uses the following services and components:
     (replication), gateway proxy (for a CIFS repository), or on a
     repository itself. At restore, the dataflow is in the
     opposite direction.
-
-
-### Sizing a Backup Proxy
-
