@@ -87,8 +87,7 @@ processing of VMs/VM disks:
 -   If a VM was created with multiple disks, Veeam will try to process
     these disks simultaneously to reduce VM snapshot lifetime.
 
-**Note:** Parallel processing is a global setting that is turned on by
-default. { .note }
+**Note:** Parallel processing is a global setting that is turned on by default.
 
 ### Backup Proxy Services and Components
 
