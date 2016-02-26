@@ -10,7 +10,7 @@
    * [Document Revision History](about_this_guide/document_revision_history.md)
 * [Introduction](introduction/README.md)
    * [Veeam Availability Suite 8.0](introduction/veeam_availability_suite_80.md)
-* [Resource Planning](resource_planning/resourceplanning.md)
+* [Resource Planning](resource_planning/resource_planning.md)
    * [DNS and Name Resolution](resource_planning/dns_and_name_resolution.md)
    * [Veeam Backup Server](resource_planning/veeam_backup_server.md)
    * [Veeam Backup & Replication Database](resource_planning/veeam_backup_and_replication_database.md)
