@@ -1,8 +1,5 @@
 # Proxy Server and Transport Modes
 
-Proxy Server and Transport Modes
---------------------------------
-
 ### Veeam Backup Proxy Overview 
 
 With backup proxies, you can easily scale Veeam backup infrastructure
@@ -91,7 +88,7 @@ processing of VMs/VM disks:
     these disks simultaneously to reduce VM snapshot lifetime.
 
 **Note:** Parallel processing is a global setting that is turned on by
-default.
+default. { .note }
 
 ### Backup Proxy Services and Components
 
