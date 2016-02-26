@@ -104,7 +104,7 @@ configured for such VMs. This will slow down SureBackup jobs
 significantly. Therefore, it is always recommended to install VMware
 Tools on a verified VM.
 
-###  Testing Virtual Mac
+###  Testing Virtual Machines
 
 1.  **VMware Tools heartbeat** is used for verifying that the VM OS is successfully started.
 
