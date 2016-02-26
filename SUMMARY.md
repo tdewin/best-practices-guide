@@ -7,7 +7,7 @@
    * [Company Contacts](contacting_veeam_software/company_contacts.md)
 * [About This Guide](about_this_guide/about_this_guide.md)
    * [Intended Audience](about_this_guide/intended_audience.md)
-* [Introduction](introduction/README.md)
+* [Introduction](introduction/readme.md)
    * [Veeam Availability Suite 8.0](introduction/veeam_availability_suite_80.md)
 * [Resource Planning](resource_planning/resource_planning.md)
    * [DNS and Name Resolution](resource_planning/dns_and_name_resolution.md)
