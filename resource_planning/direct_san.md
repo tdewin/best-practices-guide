@@ -6,7 +6,7 @@ or iSCSI connection) between the VMFS datastore and the backup proxy for data tr
 ## Pros
 
 -   Direct SAN Access mode provides the fastest, the most reliable and
-    predictable backup performance (typically, using 8 Gb Fiber Channel
+    predictable backup performance (typically, using 8 Gb Fibre Channel
     or 10 GbE for iSCSI).
 
 -   Produces zero impact on VMware vSphere hosts and
