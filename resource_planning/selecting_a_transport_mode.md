@@ -10,6 +10,7 @@ Depending on the size of the environment, there are different recommendations fo
 | Large | 20-100 hosts with shared storage |
 | Enterprise | Over 100 hosts |
 
+Keep in mind that within larger datacenters, multiple definitions may apply. As an example, it is possible that a separate management or DMZ cluster without shared storage could benefit from using the "Very small" or "Small" recommendations, while the main production environment is leveraging recommendations based on "Medium" to "Enterprise" datacenter size.
 
 ##  Very small
 
