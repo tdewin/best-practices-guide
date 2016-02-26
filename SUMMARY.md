@@ -21,7 +21,7 @@
            * [Direct SAN](resource_planning/direct_san.md)
            * [Virtual Appliance Mode](resource_planning/virtual_appliance_mode.md)
            * [Network Mode](resource_planning/network_mode.md)
-       * Selecting a Transport Mode
+       * [Selecting a Transport Mode](resource_planning/selecting_a_transport_mode.md)
    * [Repository Server](resource_planning/repository_server.md)
    * [vPower NFS and Virtual Lab](resource_planning/vpower_nfs_and_virtual_lab.md)
    * [WAN Acceleration](resource_planning/wan_acceleration.md)
