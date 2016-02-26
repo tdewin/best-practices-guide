@@ -5,7 +5,7 @@
    * [Customer Support](contacting_veeam_software/customer_support.md)
    * [Online Support](contacting_veeam_software/online_support.md)
    * [Company Contacts](contacting_veeam_software/company_contacts.md)
-* [About This Guide](about_this_guide/README.md)
+* [About This Guide](about_this_guide/about_this_guide.md)
    * [Intended Audience](about_this_guide/intended_audience.md)
    * [Document Revision History](about_this_guide/document_revision_history.md)
 * [Introduction](introduction/README.md)
