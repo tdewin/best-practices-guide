@@ -1,6 +1,4 @@
-# Proxy Server and Transport Modes
-
-### Veeam Backup Proxy Overview 
+# Proxy Server
 
 With backup proxies, you can easily scale Veeam backup infrastructure
 based on the organization demands:
@@ -62,15 +60,15 @@ guide.
 After the algorithm identifies all existing backup proxies, it spreads
 the load across them in an optimal way:
 
-a.  It discovers the number of tasks being processed at the moment by
+1.  It discovers the number of tasks being processed at the moment by
     each proxy, and looks for the server with the lowest load and the
     best connection.
 
-b.  All tasks are standing in a “VM to process” queue, and when a
+2.  All tasks are standing in a “VM to process” queue, and when a
     proxy’s task slot becomes free, Veeam Backup & Replication will
     automatically fill it up with the next task.
 
-c.  Note that priority goes to the disk that belongs to an already
+3.  Note that priority goes to the disk that belongs to an already
     processed VM; also, short-term scheduled jobs take priority over
     long-term scheduled jobs (like daily or weekly jobs).
 
@@ -116,38 +114,10 @@ Veeam backup proxy uses the following services and components:
 ### Data Transport Modes for Backup Proxies 
 
 
-#### Network Mode (NBD) 
-
-#### .
-
-#### Virtual Appliance Mode (Hot-Add) 
-
 
 
 ### Veeam Storage Integration and Processing Modes for Backing Up from Storage Snapshots
 
-Storage integration implemented with Veeam Backup & Replication supports
-HP StoreVirtual, HP StoreServ and NetApp Data ONTAP storage types.
-Backup proxy servers are utilized for storage discovery, reading and
-writing data and for leveraging storage snapshots, which minimizes the
-VMware Snapshot commit load.
-
-**Note**: To read more about storage integration, refer to Veeam Backup
-& Replication User Guide and corresponding sections of this guide.
-
-Veeam Backup & Replication uses storage snapshots to minimize VMware VM
-snapshot lifetime and to reduce load on VMware ESXi hosts and storage
-systems.
-
-The Storage integration feature utilizes proxy servers to read data
-directly from these snapshots (without adding them to a proxy ESXi
-host), to transport data and to scan the storage systems for possible
-restore points in storage snapshots. Based on the supported storage
-protocol, this feature requires direct network connections or SAN
-connections (like iSCSI/Fiber Channel).
-
-**Note**: For more information, refer to the corresponding sections of
-this guide and Veeam Backup & Replication User guide.
 
 ### Choosing Transport Mode
 
