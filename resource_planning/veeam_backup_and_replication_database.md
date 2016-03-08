@@ -90,14 +90,15 @@ guidelines:
 
 Number of concurrent running jobs
 
-| Number of concurrent running jobs (including enabled backup copy jobs) | CPU | RAM |
-| -----------------------------------------------------------------------|---- | ----|
-| Up to 25                                                               |  2  | 4GB |
-| Up to 50                                                               |  4  | 6GB |
-| Up to 100                                                              |  8  | 8GB |
+| Number of concurrently running jobs | CPU | RAM |
+| ------------------------------------|---- | ----|
+| Up to 25                            |  2  | 4GB |
+| Up to 50                            |  4  | 6GB |
+| Up to 100                           |  8  | 8GB |
 
-If you plan to run more than 100 jobs at the same time, add more
-ressources.
+**Note:** Concurrently running jobs include Backup Copy Jobs.
+
+If you plan to run more than 100 jobs concurrently, add additional resources accordingly.
 
 It is also recommended to place the configuration database on on a fast
 disk storage subsystem, such as 10, 000 rpm or faster SAS/FC disks.
