@@ -88,8 +88,6 @@ performance and load balancing, it is necessary to provide sufficient
 RAM and CPU resources to Veeam components. If possible, follow these
 guidelines:
 
-Number of concurrent running jobs
-
 | Number of concurrently running jobs | CPU | RAM |
 | ------------------------------------|---- | ----|
 | Up to 25                            |  2  | 4GB |
