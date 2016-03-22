@@ -222,8 +222,9 @@ that may help deciding which deployment type is the best fit.
 -   If installed on a physical machine, the Veeam backup server runs
     independently from the virtual platform. This may also be an ideal
     solution in case of a disaster in the virtual environment. Should the
-    physical server itself fail, there are some additional steps to
-    reestablish access to backup repositories and 
+    physical server itself fail, there are additional steps to take before
+    reestablishing access to backup repositories and being able to restore.
+    [FIXME]
 
 In an enterprise environment, it is recommended to install an additional
 Veeam backup server to speed up the failover process when it is needed
