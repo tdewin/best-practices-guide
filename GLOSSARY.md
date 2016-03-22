@@ -1,5 +1,8 @@
 # Glossary
 
+## D/R
+Disaster Recovery
+
 ## POC
 
 Proof of concept - the recommended evaluation process before performing a full scale implementation of Veeam Availability Suite.
