@@ -212,15 +212,15 @@ stored.
 Veeam Backup & Replication server can be deployed on a physical or
 virtual server.
 
--   In most cases, when the Veeam backup server runs on a VM, it is
-    replicated to a secondary location or a DR site by leveraging a
-    separate VMware environment. In the case of a datacenter
-    availability failure/event, this VM can be powered on via the VMware
-    vSphere Client to ensure proper 1-click failover.
+-   If installed in a virtual machine, the VM can be replicated to a
+    secondary location such as a D/R site. If the virtual machine itself
+    shoud fail, or in the event of a datacenter
+    or infrastructure failure, the replicated VM can be powered on via
+    the VMware vSphere Client.
 
 -   If installed on a physical machine, the Veeam backup server runs
     independently from the VMware platform, which may also be an ideal
-    solution in case of a disaster even within VMware environment.
+    solution in case of a disaster in the virtual infrastructure.
 
 In an enterprise environment, it is recommended to install an additional
 Veeam backup server to speed up the failover process when it is needed
