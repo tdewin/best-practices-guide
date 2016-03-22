@@ -220,7 +220,7 @@ that may help deciding which deployment type is the best fit.
     the VMware vSphere Client.
 
 -   If installed on a physical machine, the Veeam backup server runs
-    independently from the VMware platform, which may also be an ideal
+    independently from the virtual platform, which may also be an ideal
     solution in case of a disaster in the virtual environment. 
 
 In an enterprise environment, it is recommended to install an additional
