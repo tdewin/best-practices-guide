@@ -209,18 +209,19 @@ stored.
 
 ### Physical or Virtual? 
 
-Veeam Backup & Replication server can be deployed on a physical or
-virtual server.
+You may deploy Veeam Backup & Replication server as either a physical or
+virtual server. Depending on the environment, here are some guidelines
+that may help deciding which deployment type is the best fit.
 
 -   If installed in a virtual machine, the VM can be replicated to a
     secondary location such as a D/R site. If the virtual machine itself
-    shoud fail, or in the event of a datacenter
+    should fail, or in the event of a datacenter
     or infrastructure failure, the replicated VM can be powered on via
     the VMware vSphere Client.
 
 -   If installed on a physical machine, the Veeam backup server runs
     independently from the VMware platform, which may also be an ideal
-    solution in case of a disaster in the virtual infrastructure.
+    solution in case of a disaster in the virtual environment. 
 
 In an enterprise environment, it is recommended to install an additional
 Veeam backup server to speed up the failover process when it is needed
