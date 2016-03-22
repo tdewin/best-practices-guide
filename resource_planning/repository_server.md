@@ -83,11 +83,11 @@ issues).
 a battery module to the server’s RAID to enable write-back mode for the
 flash cache.
 
-  Pros              Cons
-  ----------------- -------------------------
-  Cost efficiency   Manageability
-  Performance       Single point of failure
-  Simplicity        Monolithic
+| Pros | Cons |
+| -- | -- |
+| Cost efficiency | Manageability |
+| Performance | Single point of failure |
+| Simplicity | Monolithic |
 
 #### SAN Storage
 
@@ -102,11 +102,11 @@ of a Veeam Repository Server failure.
 **Tip**: You can configure multiple backup repositories on the SAN
 storage to increase repository throughput to the storage system.
 
-  Pros                      Cons
-  ------------------------- ------------
-  Reliability               Complexity
-  Performance               Cost
-  Technical possibilities   
+| Pros | Cons |
+| -- | -- |
+| Reliability | Complexity |
+| Performance | Cost |
+| Technical capabilities |  |
 
 ### Windows or Linux?
 
@@ -135,14 +135,14 @@ virtualization infrastructure. For example, you can add the backup
 target storage by physical Raw Device Mapping (pRDM) into the VM, so if
 VMFS has a failure, it will not affect the backup target storage.
 
-### CIFS Repository 
+### SMB/CIFS Repository 
 
 While a CIFS (or SMB) repository is often considered to provide less
 performance than direct attached storage, it still can provide very good
 results as a repository due to leveraging Veeam’s load-balancing
 technology for write operations, as explained in the next sections.
 
-### CIFS Gateway Server 
+### SMB/CIFS Gateway Server 
 
 When you set up an SMB share as a repository, the following options are
 available:
@@ -152,20 +152,24 @@ available:
     perform the role of “data writer”)
 
 -   Specifying a unique server (from Windows servers added in Veeam
-    Backup management console) as a CIFS gateway proxy
+    Backup management console) as a SMB/CIFS gateway proxy
 
 The second option is very helpful in case the SMB share is located
-remotely — if so, it is recommended to use a CIFS gateway server as
-close as possible to the SMB storage. Remember, however, to keep the
-data flow under control.
+on a remote location, and to avoid synthetic operations occuring via
+WAN. It is always recommended using a SMB/CIFS gateway server as
+close as possible to the SMB/CIFS target storage. By declaring the
+SMB/CIFS gateway manually, you have a better chance of keeping the dataflow
+under control.
 
-To get the best performance out of CIFS storage, you can set up as many
-connections as possible, and also leverage the automatic CIFS gateway
-proxy load balancing by selecting **Automatic** from the drop-down list.
+As single stream performance for SMB/CIFS repositories may not be optimal, 
+you can potentially increase performance for your SMB/CIFS target storage 
+by configuring several repositories pointing to the same folder using different
+gateway servers. With multiple proxies, the automatic SMB/CIFS gateway may be a
+good option, and can be configured by selecting **Automatic** from the drop-down list.
 
-**Note:** Automatic selection will disable metadata caching (see Release
-Notes for Veeam Backup & Replication v8 Update 2b at
-<http://www.veeam.com/kb2024> ).
+**Note:** Automatic selection will disable metadata caching, and overall performance may
+suffer on storages with poor random I/O such as deduplication appliances. For deduplication
+appliances, it is recommended to leverage available API integrations whenever possible.
 
 #### Load Balancing (with Automatic Proxy Selection) 
 
