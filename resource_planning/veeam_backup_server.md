@@ -4,33 +4,3 @@ Before installing the Veeam Backup & Replication server, it is important to unde
 Depending on component placement, this may affect your decision for where to install the backup server (physical datacenter or different ESXi cluster). It could also mean that you would choose to install additional backup servers in remote locations to optimize restore performance.
 
 All those considerations will be covered in this chapter.
-
-## Deployment Method 
-
-You may deploy Veeam Backup & Replication server as either a physical or
-virtual server. Depending on the environment, here are some guidelines
-that may help deciding which deployment type is the best fit.
-
-### Virtual deployment
-If installed in a virtual machine, the VM can be replicated to a
-secondary location such as a D/R site. If the virtual machine itself
-should fail, or in the event of a datacenter
-or infrastructure failure, the replicated VM can be powered on via
-the VMware vSphere Client.
-
-### Physical deployment
-
-If installed on a physical machine, the Veeam backup server runs
-independently from the virtual platform. This may also be an ideal
-solution in case of a disaster in the virtual environment. Should the
-physical server itself fail, there are additional steps to take before
-reestablishing access to backup repositories and being able to restore.
-[FIXME]
-
-In an enterprise environment, it is recommended to install an additional
-Veeam backup server to speed up the failover process when it is needed
-(it can be co-located with one of the Veeam proxy or repository
-servers). If the Veeam Backup Service has to be restored independently
-of the Veeam backup server, then back up the Veeam Backup & Replication
-configuration and keep a copy in the designated location.
-
