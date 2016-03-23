@@ -13,6 +13,7 @@
    * [DNS and Name Resolution](resource_planning/dns_and_name_resolution.md)
    * [Veeam Backup Server](resource_planning/veeam_backup_server.md)
        * [Data Flow Considerations](resource_planning/data_flow.md)
+       * Sizing and System Requirements
    * [Veeam Backup & Replication Database](resource_planning/veeam_backup_and_replication_database.md)
    * [Protecting Veeam Backup & Replication Configuration](resource_planning/protecting_veeam_backup_and_replication_config.md)
    * [Veeam Enterprise Manager](resource_planning/veeam_enterprise_manager.md)
