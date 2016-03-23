@@ -12,7 +12,7 @@
 * [Resource Planning](resource_planning/resource_planning.md)
    * [DNS and Name Resolution](resource_planning/dns_and_name_resolution.md)
    * [Veeam Backup Server](resource_planning/veeam_backup_server.md)
-       * Deployment Method
+       * [Deployment Method](resource_planning/deployment_method.md)
        * [Data Flow Considerations](resource_planning/data_flow.md)
        * [Sizing and System Requirements](resource_planning/sizing_and_system_requirements.md)
    * [Veeam Backup & Replication Database](resource_planning/veeam_backup_and_replication_database.md)
