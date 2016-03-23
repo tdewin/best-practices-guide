@@ -1,11 +1,8 @@
 # Data Flow
 
-## Data Flow Considerations 
-
 Here is an overview of some of the data streams created by the Veeam Backup Service.
 
 1.  Host and storage discovery
-
 2.  Data flow at restore, including:
   -   Windows file-level restore process
   -   Application item restore (via Veeam Explorer for Microsoft Active
@@ -18,7 +15,7 @@ Here is an overview of some of the data streams created by the Veeam Backup Serv
 
 ![](../media/image8.png)
 
-### Host and Storage Discovery 
+## Host and Storage Discovery 
 
 The Veeam backup server periodically scans all managed hosts and storage
 systems in order to detect new datastores and newly added VMware cluster
@@ -53,7 +50,7 @@ suggested:
 **Note:** Avoid adding individual hosts to the backup infrastructure if
 using shared storage in VMware vSphere.
 
-### Disaster Recovery Optimization
+## Disaster Recovery Optimization
 
 Best practices recommend to deploy a Veeam backup server on the target
 site where replicated VMs will reside. Therefore, if you plan to perform
@@ -68,7 +65,7 @@ failover operations.
 
 ![](../media/image9.png)
 
-#### Example 1: Enterprise Deployment for 50 Remote Offices, with Central Job Management
+### Example 1: Enterprise Deployment for 50 Remote Offices, with Central Job Management
 
 An organization comprises 50 branches, with ESXi hosts on each site, and
 a vCenter Server in the central location. IT require a central
@@ -127,7 +124,7 @@ However, the following considerations should be taken into account:
     that the same patch/update/version level is used for the entire
     Veeam backup infrastructure.
 
-#### Example 2: Enterprise Deployment for 50 Remote Offices, with Independent Job Scheduling and Self-Services
+### Example 2: Enterprise Deployment for 50 Remote Offices, with Independent Job Scheduling and Self-Services
 
 An organization features 50 branches, with ESXi hosts on each site, and
 a vCenter Server in the central location. They require VM backups and
