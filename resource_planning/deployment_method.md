@@ -19,11 +19,11 @@ If installed on a physical machine, the Veeam backup server runs independently f
 
 Should the physical server itself fail, there are additional steps to take before reestablishing operations:
 
-  1. Install and update operating system
+  1. Install and update the operating system
   2. Install Veeam Backup & Replication
   3. Restore "Configuration Backup"
 
-In an enterprise environment, it is recommended to install an additional
+[FIXME] In an enterprise environment, it is recommended to install an additional
 Veeam backup server to speed up the failover process when it is needed
 (it can be co-located with one of the Veeam proxy or repository
 servers). If the Veeam Backup Service has to be restored independently
