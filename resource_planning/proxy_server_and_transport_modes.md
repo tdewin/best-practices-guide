@@ -80,7 +80,7 @@ Starting with v7, Veeam Backup & Replication supports parallel
 processing of VMs/VM disks:
 
 -   It can process multiple VMs (each with a single disk)
-    simultaneously, increasing data processing efficiency.
+    simultaneously, increasing data processing efficiency
 
 -   If a VM was created with multiple disks, Veeam will try to process
     these disks simultaneously to reduce VM snapshot lifetime.
