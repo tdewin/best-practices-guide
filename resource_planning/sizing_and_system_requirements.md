@@ -3,7 +3,7 @@
 ## CPU and RAM
 
 Recommended Veeam backup server configuration should have 1 CPU core (physical or virtual) and 4 GB RAM per 10 concurrent running jobs. Concurrent jobs include any
-running backup or replication jobs, as well as any job with a continuous scheldue such as backup copy jobs and tape jobs.
+running backup or replication jobs, as well as any job with a continuous schedule such as backup copy jobs and tape jobs.
 
 The minimum recommendation is 2 CPU cores and 8 GB RAM.
 
