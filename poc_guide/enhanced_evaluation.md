@@ -1,0 +1,4 @@
+# Enhanced Evaluation
+Based on the information gathered during the assessment phase and customer requirements, you may design a solution on paper and possibly implement it. Most likely such designs are going to change over multiple revisions during the implementation phase after communicating with other departments e.g. security, networking and storage teams. It may also happen that the customer comes up with the new demands based on new findings. This may delay in the implementation and ultimately lead to increased cost.
+
+This chapter about The Enhanced Evaluation should help you avoiding such situations. We will explain how the approach used by Veeam architects can help you simplify and streamline the design phase and steer all project participants towards the same goals. This will optimize the implementation phase and ultimately cut cost due to less time spent revising the design and realigning stakeholders.

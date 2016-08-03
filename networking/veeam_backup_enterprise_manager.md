@@ -1,3 +1,5 @@
-# Veeam Backup Enterprise Manager
+# Enterprise Manager
 
-![](../media/image73.png)
+The following ports are required for Enterprise Manager
+
+![Enterprise Manager](./VEEAM-for-VMWare-Enterprise-Manager-connections.png)

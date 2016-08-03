@@ -1,3 +1,3 @@
-# Veeam Backup Server
+# Backup Server
 
-![](../media/image71.png)
+![](./veeam_backup_server.png)

@@ -4,25 +4,24 @@ Getting the right amount of processing power is essential to achieving the RTPO 
 
 ## Processing Resources 
 
-As per system requirements, a proxy requires 2 GB RAM plus 200MB for
-each concurrent task (VM disk to be processed).
-
 As described above, you can define the max concurrent tasks value in the
-backup proxy settings. On average, a task consumes 1 physical core or 1 vCPU
-(for data reduction and encryption). Depending on the job settings, these numbers may vary slightly.
+backup proxy settings. It is best practices to plan for 1 physical core or 1 vCPU
+and 2 GB of RAM for each of the task slots. A Task slot can process 1 VM disk at a time and CPU/RAM 
+Ressources are used for Inline Deduplication, Compression, Encryption and other features that are 
+running on the Proxy itself. In the UserGuide and within other Veeam documents there is a statement that 2GB of RAM + 512MB per Task slots should be used. Consider those as minimum requirements and plan with the above
+mentioned ressources to be open for further development and special job settings that consum more RAM.
+If the Proxy is used for other roles like Gateway Server for CIFS shares, Datadomain DDBoost, StoreOnce Catalyst or if you run the Repository Roles as well on the server, don´t forget to add additional ressources. Please check the other chappters for details.
 
--   If you double the proxy task count, that will, in general, decrease
+**TIP:* If you double the proxy task count, that will, in general, decrease
     backup time window up to 50%.
 
--   It is recommended to plan for some additional resources – for
-    further growth and possible new features: for example, the RAM usage
-    for one proxy processing task should not be considered lower than 2 GB. This will help ensuring sufficient resources for features in future releases.
+##Total needed Task Slot Numbers
+A general sizing rule of thumb is, to use 1 physical CPU core or vCPU and 2 GB RAM
+for each 30 VMs within an 8 hour backup window. Depending on the infrastructure and mainly the storage 
+performance, these number can turn out to be too conservative, we recommend to do a POC and find out the 
+specific numbers for the environment.
 
-As a rule of thumb, a proxy will need 1 CPU+2 GB RAM for each 30 VMs
-(with average change rate of 2-3 % at the block level) to fit into a
-8-hour backup window.
-
-## Calculating Overall Task Count
+## Calculating Overall Task Count Examples
 
 Sample infrastructure has the following configuration:
 
@@ -65,7 +64,17 @@ replication jobs.
 ## How Many VMs per Job?
 
 Best practice is to add 20-50 VMs to a job (30 VMs at about 1000-2000
-VMs; 50 VMs at 5000 VMs).
+VMs; 50 VMs at 5000 VMs). With enabled per VM chains larger jobs can be
+considered. But think about that some of the tasks within a job are still
+sequential processes. For example a merge process that write the oldest
+incremental file into the full file is started after the last VM finishes
+backup processing. If you split the VMs into multiple jobs these background
+processes are parallelized and overall backup window can be lower.
+Be as well carefull with big jobs when you use Storage Snapshots at Backup
+from Storage Snapshots. Guest processing and Scheduling of jobs that contain
+multiple snapshots can lead into difficult scheduling situation and Jobs
+that spend time waiting for (free) ressources. A good size for Jobs that 
+write to per VM chain enabled repositories is 50-200 VMs per Job.
 
 Also, remember that the number of running backup jobs should not exceed
 100 jobs concurrently running (not overall). Veeam can handle more, but
@@ -76,7 +85,7 @@ is about 80-100 concurrently running jobs.
 
 Typically, in a virtual environment, proxy servers use 4, 6 or 8 vCPUs,
 while in physical environments you can use a server with a single quad
-core CPU for small sites, while more powerful systems (dual 16 core CPU)
+core CPU for small sites, while more powerful systems (dual 10-16 core CPU)
 are typically deployed at the main datacenter with the Direct SAN Access
 mode processing.
 
@@ -89,7 +98,8 @@ good storage connection you will have a very high parallel proxy task
 count per proxy.
 
 The “sweet spot” in a physical environment is about 20 processing tasks
-with 2x 16 Gbps FC cards for read.
+2x10 Core CPU with 48GB RAM and 2x 16 Gbps FC cards for read + 1-2 10GbE
+Network cards.
 
 Depending on the primary storage system and backup target storage
 system, any of the following methods can be recommended to reach the
@@ -113,7 +123,9 @@ consumption and speed:
 -   **Compression level**: It is not recommended to set it up to *High*
     (as it needs 2 CPU Cores per proxy task) or to *Extreme* (which
     needs much CPU power but provides only 2-10% additional
-    space saving).
+    space saving). However if you have a lot of free CPU ressources
+    at the backup time window, you can consider to use *High* compression
+    mode.
 
 -   **Block Size**: the smaller the blocks size is, the more RAM is
     needed for deduplication. For example, you will see a RAM increase
@@ -128,3 +140,4 @@ consumption and speed:
 
 -   **3rd party applications** – it is not recommended to use an
     application server as a backup proxy.
+<!-- AN2016 21.06.2016 -->

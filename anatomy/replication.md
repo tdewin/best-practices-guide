@@ -19,7 +19,7 @@ writing data to target.
 
 This diagram illustrates the replication process with the NBD transport
 mode used for reading and writing VM data. For examples of the Direct
-SAN Access and HotAdd transport modes, see the “Backup Anatomy” section
+SAN/NFS Access and HotAdd transport modes, see the “Backup Anatomy” section
 above in this Appendix.
 
 ![](../media/image69.png)
@@ -31,3 +31,4 @@ Backup & Replication components in a distributed environment, with a WAN
 link between the production and DR sites.
 
 ![](../media/image70.png)
+<!--AN2016 finished-->
