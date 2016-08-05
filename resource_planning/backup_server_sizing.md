@@ -14,9 +14,14 @@ It is recommended to group multiple virtual machines into a single job for bette
 All configuration and session information is stored in the configuration database. In larger environments the load on the SQL Server hosting the configuration database may be significant and is highly dependent on the amount of concurrently running jobs. For more information please see the [Backup Server Database](resource_planning/backup_server_database.md) section of this guide.
 
 ## Operating system
-The Veeam backup server requires Microsoft Windows 2008 R2 or later. The latest version of Windows OS is always recommended (currently Microsoft Windows 2012 R2) as it will also support restoring from virtual machines with ReFS file systems or Windows Server Deduplication enabled.
+The Veeam backup server requires Microsoft Windows 2008 R2 or later.
+The latest supported version of Windows OS is always recommended (currently
+Microsoft Windows 2012 R2) as it will also support restoring from virtual
+machines with ReFS file systems or Windows Server Deduplication enabled.
 
-For the full list of supported operating systems, please refer to the corresponding [System Requirements](https://helpcenter.veeam.com/backup/vsphere/system_requirements.html#backup_server) section of the Veeam User Guide.
+For the full list of supported operating systems,
+please refer to the corresponding [System Requirements](https://helpcenter.veeam.com/backup/vsphere/system_requirements.html#backup_server)
+section of the Veeam User Guide.
 
 ## Disk space
 This section explains what folders you should plan for when preparing
@@ -44,7 +49,7 @@ Default location is `C:\VBRCatalog`
 This folder is used if VM guest indexing in backup jobs is enabled. For more information, refer to the [Search Server and Indexing](resource_planning/search_server_and_indexing.md) section of this guide. To change the default location, refer to this Veeam Knowledge Base article: <http://www.veeam.com/kb1453>
 
 ### vPower NFS folder
-Default location is `C:\ProgramData\Veeam\Backup\\NfsDatastore`
+Default location is `C:\ProgramData\Veeam\Backup\NfsDatastore`
 
 When booting VMs with Instant VM Recovery this folder is used by default to store all configuration files and redo logs of the running VM. To offload the changes to a specific production datastore refer to the corresponding page of the Instant VM Recovery wizard.
 

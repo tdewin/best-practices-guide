@@ -36,10 +36,9 @@ virtual machine simultaneously (using this transport mode).
 **Tip:** It is recommended to benchmark how such operations affect the
 backup window by monitoring a test job in the vSphere console.
 
-Veeam developed an it's transport mode for NFS based datastore to overcome
-the problems with disk hot-add and release VMware processing (which can
-cause VM stuns at NFS based VMs). This mode is Direct NFS and
-was added to the Direct Storage mode. Direct NFS should be used
+Veeam developed Direct Storage Access for NFS based datastores to overcome
+the problems with disk hot-add and release which causes
+significant stuns for NFS based VMs). Direct Storage Access should be used
 for all virtual and physical proxy deployment to backup and restore
 NFS datastore based VMs.
 
@@ -78,25 +77,24 @@ in the "Veeam Backup & Replication Server" section of this guide.
 It may occur that VMware API reports that unmap and snapshot commit were
 done correctly but a snapshot file still remains on disk. These
 "orphaned snapshots" will grow over time and can fill up the datastore
-leading to downtimes (such a situation is most possible on NFS-based
-storage). To overcome this issue, Veeam offers the following methods:
+leading to downtimes (such situation is most likely to happen on NFS based
+storage). To mitigate the issue, Veeam implemented the following functionality:
 
--   Veeam Snapshot Hunter. This feature supports
-    automatic clean-up of orphaned snapshots after each backup process.
-    It can also repair the orphaned snapshots that were left over by
-    other software (including VMware). For more information please see [Snapshot Hunter section
+-   Veeam Snapshot Hunter. This feature automatically initiates disk consolidation
+    for VMs in the "Virtual machine disks consolidation is needed" state.
+    For more information please see [Snapshot Hunter](./interaction_with_vsphere.md#snapshot-hunter)
+    section
 
--   Bypassing VDDK processing to overcome some limitations and
+-   Bypassing Virtual Disk Development Kit (VDDK) processing to overcome some limitations and
     performance challenges, in particular:
     -   Veeam can back up multiple disks of VM in parallel on same proxy
     (default number is 4).
-    - Typical "HotAdd I/O bursts" do not happen with Veeams Hot-Add restore
-	or replica target Hot-Add processing as Veeam bypass the VMware
-	VDDK Kit.
-  - When performing writes via hot-add and VDDK, excessive metadata updates on the VMFS datastore will occur. This significantly impacts performance for other workloads on the datastore, and slows down restore throughput. Bypassing VDDK helps overcoming this limitation
+    - Typical "hot-add I/O bursts" during hot-add operations are mitigated by
+    bypassing VMware VDDK during restores and replication.
+    - When performing writes via hot-add and VDDK, excessive metadata updates on the VMFS datastore will occur. This significantly impacts performance for other workloads on the datastore, and slows down restore throughput. Bypassing VDDK helps overcoming this limitation
 
 
--   To avoid some VMware issues related to NFS datastore and Hot-Add
+-   To avoid some VMware issues related to NFS datastore and hot-add
     processing (described at
     <http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=2010953>
     ) enable a specific setting that will process VM backups only on
@@ -111,12 +109,15 @@ Operations” section of this guide.
 ## Recommendations
 
 -   You will need at least one type of (virtual) SCSI controller added to
-	Proxy Server VM that is used somewhere at the VMs in your infrastructure
+	  Proxy Server VM that is used somewhere at the VMs in your infrastructure
     to allow VMware to HotAdd the VM disks at backup.
 
 -   Add an extra SCSI controller to allow for more VM disks processing
     in parallel (check the corresponding Veeam proxy settings, default
-    value is 4).The limit for a single controller is the maximum number of devices per SCSI controller (15). Max SCSI controllers per VM is 4 = 60 disks max. Adding one additional SCSI controller is usually sufficient.
+    value is 4). The limit for a single controller is the maximum number
+    of devices per SCSI controller (15). Max SCSI controllers per
+    VM is 4 = 60 disks max. Adding one additional SCSI controller is
+    usually sufficient.
 
 -   When deploying hot-add backup proxies avoid cloning existing
     VMs as this may lead to identical UUIDs and cause hot-add operations

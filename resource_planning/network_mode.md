@@ -1,9 +1,9 @@
 # Network Mode
 
 Network mode is by far the easiest backup mode to implement as it
-requires no additional configuration. Veeam always uses this mode at
-to back up and restore VMware configuration files and to read
-Change Block Tracking information.
+requires no additional configuration. Veeam uses the same interface
+to backup and restore VMware configuration files and to read
+Change Block Tracking (CBT) information.
 
 When in this mode the backup proxy will connect to ESXi hosts on
 VMkernel interfaces by DNS name resolution and use this connection to

@@ -5,7 +5,8 @@ Enterprise Manager is intended for centralized reporting
 and management of multiple backup servers. It provides
 delegated restore and self-service capabilities as well as the
 ability for users to request Virtual Labs from backup
-administrators. It can be used as a central management point for upgrades, distributing software packages to the relevant backup servers from a single point of management. Enterprise Manager is also a part of
+administrators. It provides a central management point for multiple
+backup servers from a single interface. Enterprise Manager is also a part of
 the data encryption and decryption processes implemented in the Veeam
 solution and best practice recommend deploying Enterprise Manager in
 the following scenarios:

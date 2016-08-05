@@ -2,6 +2,8 @@
 
 ## EMC DataDomain
 
+Selecting DataDomain as a repository will automatically recommend job and repository settings according to best practices. For more information, refer to vendor guidelines.
+
 DDBoost allows for the following capabilities:
 
 -   Source side deduplication between the Veeam gateway server and DataDomain appliance. This will reduce the amount of data sent over the network to the appliance
@@ -13,7 +15,7 @@ For more details, refer to the DDBoost configuration guide by Rick Vanover:  [Co
 
 ### Chain Length Limitation
 
-Consider that DataDomain can support only up to 59 incremental restore points for a single full backup. For details, refer to the Veeam Backup & Replication User Guide: [Limitations for EMC Data Domain](https://helpcenter.veeam.com/backup/vsphere/emc_limitations.html)
+Consider that DataDomain can support only up to 60 incremental restore points for a single full backup. For details, refer to the Veeam Backup & Replication User Guide: [Limitations for EMC Data Domain](https://helpcenter.veeam.com/backup/vsphere/emc_limitations.html)
 
 ## ExaGrid
 

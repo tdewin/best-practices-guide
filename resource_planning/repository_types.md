@@ -9,7 +9,8 @@ Being storage-agnostic, Veeam Backup & Replication supports a wide range of repo
 
 As a basic guideline, a repository should be highly resilient, since it is hosting customers data. It also needs to be scalable, allowing the backup to grow as needed.
 
-Organization’s policies may require different storages for backups with different retention. If so, you can configure, for instance,two repositories:
+Organization policies may require different storages for backups with different
+retention. In such scenario, you may configure two backup repositories: 
 -   A high-performance repository hosting several recent retention points for instant restores and other quick operations
 -   A repository with more capacity, but using a cheaper and slower storage, storing long-term retention points
 

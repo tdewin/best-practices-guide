@@ -28,7 +28,7 @@ The workflow for Storage Orchestration is:
 
 ![](./backup_from_storage_snapshots_netapp_1.png)
 
-1.  Application-aware processing ensures transactional consistency
+1.  _(Optional)_ Application-aware processing ensures transactional consistency
     within the VM
 2.  Veeam requests a VM snapshot via VADP
 3.  Immediately after creating the VM snapshot, a storage snapshot

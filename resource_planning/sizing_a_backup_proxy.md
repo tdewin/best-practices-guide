@@ -2,23 +2,30 @@
 
 Getting the right amount of processing power is essential to achieving the RTPO defined by the business. In this section, we will outline the recommendations to follow for appropriate sizing.
 
-## Processing Resources 
+## Processing Resources
 
-As described above, you can define the max concurrent tasks value in the
+As described above, you may define the max concurrent tasks value in the
 backup proxy settings. It is best practices to plan for 1 physical core or 1 vCPU
-and 2 GB of RAM for each of the task slots. A Task slot can process 1 VM disk at a time and CPU/RAM 
-Ressources are used for Inline Deduplication, Compression, Encryption and other features that are 
-running on the Proxy itself. In the UserGuide and within other Veeam documents there is a statement that 2GB of RAM + 512MB per Task slots should be used. Consider those as minimum requirements and plan with the above
-mentioned ressources to be open for further development and special job settings that consum more RAM.
-If the Proxy is used for other roles like Gateway Server for CIFS shares, Datadomain DDBoost, StoreOnce Catalyst or if you run the Repository Roles as well on the server, don´t forget to add additional ressources. Please check the other chappters for details.
+and 2 GB of RAM for each of the tasks. A task processes 1 VM disk at a time and CPU/RAM
+resources are used for inline data deduplication, compression, encryption and other features that are
+running on the proxy itself.
 
-**TIP:* If you double the proxy task count, that will, in general, decrease
-    backup time window up to 50%.
+In the User Guide it is stated that proxy servers required 2 GB RAM + 512 MB per task.
+Please consider these values as minimum requirements. Using the above
+mentioned recommendations allow for growth and additional inline processing features
+or other special job settings that increase RAM consumption.
+
+If the proxy is used for other roles like Gateway Server for SMB shares, EMC
+DataDomain DDBoost, HPE StoreOnce Catalyst or if you run the backup repository
+on the server, remember stacking system requirements for all the different components.
+Please see related chapters for each components for further details.
+
+**Tip:** Doubling the proxy server task count will - in general - reduce the backup window by 2x.
 
 ##Total needed Task Slot Numbers
 A general sizing rule of thumb is, to use 1 physical CPU core or vCPU and 2 GB RAM
-for each 30 VMs within an 8 hour backup window. Depending on the infrastructure and mainly the storage 
-performance, these number can turn out to be too conservative, we recommend to do a POC and find out the 
+for each 30 VMs within an 8 hour backup window. Depending on the infrastructure and mainly the storage
+performance, these number can turn out to be too conservative, we recommend to do a POC and find out the
 specific numbers for the environment.
 
 ## Calculating Overall Task Count Examples
@@ -40,7 +47,7 @@ Each CPU core must have 2 GB RAM:
 
 * 16 CPU cores x 2 GB RAM = 32 GB RAM.
 
-Result: 
+Result:
 **16 CPU cores and 32 GB RAM**.
 - For a physical server, it is recommended to install dual CPUs with 8 cores each.
 - For virtual proxy servers, it is recommended to configure multiple proxies with maximum 8 vCPUs to avoid co-stop scheduling issues.
@@ -73,7 +80,7 @@ processes are parallelized and overall backup window can be lower.
 Be as well carefull with big jobs when you use Storage Snapshots at Backup
 from Storage Snapshots. Guest processing and Scheduling of jobs that contain
 multiple snapshots can lead into difficult scheduling situation and Jobs
-that spend time waiting for (free) ressources. A good size for Jobs that 
+that spend time waiting for (free) ressources. A good size for Jobs that
 write to per VM chain enabled repositories is 50-200 VMs per Job.
 
 Also, remember that the number of running backup jobs should not exceed
@@ -81,7 +88,7 @@ Also, remember that the number of running backup jobs should not exceed
 a “sweet spot” for database load, load balancing and overall processing
 is about 80-100 concurrently running jobs.
 
-## How Many Tasks per Proxy? 
+## How Many Tasks per Proxy?
 
 Typically, in a virtual environment, proxy servers use 4, 6 or 8 vCPUs,
 while in physical environments you can use a server with a single quad
