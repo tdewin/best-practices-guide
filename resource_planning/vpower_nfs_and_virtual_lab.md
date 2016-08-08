@@ -15,7 +15,7 @@ You may run this command before and after starting the SureBackup job to compare
 The routes are added just after the Virtual Lab appliance has booted and has been correctly initialized by the Veeam backup server. As static
 routes are added, this will ensure the Virtual Lab appliance is the gateway for all packets destined to the masquerade networks.
 
-**Tip**: To skip extra network configuration, place the backup server and the Virtual Lab appliance in the same network subnet.
+To avoid network reconfiguration of physical components, place the backup server and the Virtual Lab appliance in the same network subnet.
 
 Check Veeam Backup & Replication documentation for configuration details:
 
@@ -58,8 +58,7 @@ Tools on a verified VM.
 
 1.  **VMware Tools heartbeat** is used for verifying that the VM OS is successfully started.
 
-2.  **PING** tests are initiated based on the masquerated network configuration. The ping is sent from the Veeam backup server using the static routes added during the job execution. Since the masquerade network is not part of the Veeam backup server's own subnet, the packet is sent to the gateway matching the Virtual Lab network. As the static route to the masquerade network was added after the boot of the
-Virtual Lab appliance, this appliance will act as the  gateway between the Veeam backup server and the isolated virtual machines.
+2.  **PING** tests are initiated according to the masqueraded network configuration. The ping is sent from the Veeam backup server using the static routes added during the job execution. Since the masquerade network is not part of the Veeam backup server's own subnet, the packet is sent to the gateway matching the Virtual Lab network (usually the virtual lab appliance).
 
 3.  **Application-specific testing** uses scripts and is enabled based on the roles assigned to a VM in the application group configuration. The built-in roles will check corresponding TCP ports for a given service, while additional testing is available for SQL Server (see next section). TCP requests are sent from the Veeam backup server, and the routing
 to the virtual machine is handled by the Virtual Lab
@@ -67,9 +66,9 @@ proxy appliance.
 
 4. **CRC verification** is optionally available and is disabled by default. If enabled, it will ensure all content of the backup file is consistent with the hash values at the time they were written. This consistency check is using the CRC algorithm for hashing.
 
-**Note**: this feature will read 100% of the data from the backup file, this it requires a significant amount of time to be completed.
+  **Note:** This feature reads the entire backup file, and requires significant time to complete.
 
-If [Linked Jobs](https://helpcenter.veeam.com/backup/vsphere/surebackup_job_joblink_vm.html) are configured for the SureBackup job, linked VMs will start booting once all virtual machines explicitly defined within the Application Group have been successfully booted and verified. Remember that by default only 3 VMs are tested at the same time in a Linked Job. There may be more than 3 VMs linked, but the following ones will stay in the testing queue.
+If [Linked Jobs](https://helpcenter.veeam.com/backup/vsphere/surebackup_job_joblink_vm.html) are configured for the SureBackup job, linked VMs will start booting once all virtual machines explicitly defined within the Application Group have been successfully booted and verified. Remember that by default  3 VMs are tested at the same time in a Linked Job. There may be more than 3 VMs linked, but the following ones will stay in the testing queue. The limit can be adjusted in the SureBackup job configuration wizard, and may be increased if the backup repository can handle the load accordingly.
 
 ### Checking SQL Server Database Availability
 A dedicated Visual Basic script is included to allow for testing whether all databases on a given instance are available. This script is available in the Veeam installation folder as the `Veeam.Backup.SqlChecker.vbs` file.

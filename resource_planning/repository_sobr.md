@@ -42,4 +42,4 @@ During backups, the master agent is always started where the write is happening.
 
 A master datamover is the only repository agent receiving data from a source datamover (a proxy in a backup job or a source repository in a backup copy job). A master datamover is able to communicate if needed with other slave datamovers to retrieve their data.
 
-As in any scale-out solution, careful design should be applie to the network, as communications between the different datamovers may increase network consumption, regardless the policy in use or the specific design of the Scale-out architecture. In large deployments, 10Gb networks may be needed to properly operate Scale-out Backup Repository.
+As in any scale-out solution, careful design should be applied to the network, as communications between the different data movers may increase network consumption, regardless the policy in use or the specific design of the scale-out architecture. When using Scale-out Backup Repository, 10 Gb networks are always recommended.

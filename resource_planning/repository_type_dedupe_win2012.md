@@ -3,7 +3,7 @@
 Follow the recommendations provided in the configuration guidelines above; here is the summary:
 
 1.  Use **Windows 2012 R2** and apply all patches (some roll-ups contain improvements to deduplication).
-2.  Format the disk using the command line "**/L**" option (for "large size file records") and **64KB** cluster size.
+2.  Format the disk using the command line "**/L**" option (for "large size file records") and **64KB** cluster size (use parameters `/Q /L /A:64K`)
 3.  Follow [compression and deduplication guidelines](./repository_type_dedupe.md#best-practices) for non-integrated deduplication storage in previous chapter.
 4.  Modify garbage collection schedule to run daily rather than weekly.
 5.  Use backup jobs configured to perform Active full with incrementals.

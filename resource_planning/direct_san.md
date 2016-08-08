@@ -1,7 +1,7 @@
 # Direct Storage Access
 
 Under "Direct Storage Access" mode selection Veeam summarize the VMware own
-"Direct SAN Access" and the Veeam own  "Direct NFS Access" modes.
+"Direct Storage Access" and the Veeam own  "Direct NFS Access" modes.
 
 The Direct Storage Access Mode uses a direct data path (a Fibre Channel or iSCSI) between the VMFS datastore and the backup proxy for
 data transfer. The Proxy need at least read access to the datastores so
@@ -14,48 +14,44 @@ write access.
 
 ## Pros
 
--   Direct SAN Access mode provides very fast and the most reliable
+-   Direct Storage Access mode provides very fast and the most reliable
     predictable backup performance (typically, using 8 Gb Fibre Channel
     or 10 GbE for iSCSI and NFS).
 
--   Produces zero impact on VMware vSphere hosts and (VM) production networks for backup data transport.
+-   Produces zero impact on vSphere hosts and VM production networks for backup data transport.
 
--   It is also possible to perform full VM restore using Direct SAN Access mode if backup proxies that can use the Direct SAN Access mode are available in the backup infrastructure and the VM disks are thick-provisioned. This mode will be used automatically.
+-   It is also possible to perform full VM restore using Direct Storage Access. This mode will be used automatically if eligible backup proxies are available in the backup infrastructure, and the VM disks are thick provisioned.
 
--	Direct NFS is the fastest restore mode for NFS datastores. It uses multithreaded read and writes.
+-	Direct Storage Access is the fastest backup and restore mode for NFS datastores. It uses multiple concurrent read and write streams with an increased queue depth.
 
-- 	For NFS Datastore based VMs this mode provides optimized STUN times
-	and maximum backup speed without the negative effects that are known
-    for NFS based datastore when HotAdd or NBD mode is used. It is very
-    fast compared with the other backup methods as it uses multithreaded
-	reads.
+- Direct Storage Access for NFS datastores will mitigate the "VM stun" issues that may be caused by Virtual Appliance Mode (hot-add).
 
--   Direct SAN can be used at replica target for the initial replication (with thick-provisioned disk). Direct NFS can be used for initial and incremental replication at target. Both can be used at Replica source for all read data streams.
+-   Direct Storage Access for FC and iSCSI can be used for replication at the target for the initial replication (with thick provisioned disks) only. For NFS datastores, Direct Storage Access can be used for initial and incremental replication passes. There are no differences on the source replication proxy.
 
 ## Cons
 
--   Typically Direct SAN Access requires a physical server for an Fibre
-	channel or iSCSI connection. A virtual only configuration for iSCSI
-	based datastores are possible but would transport the data through the
-	ESXi hosts.
+-   Typically Direct Storage Access requires a physical server for a Fibre
+	Channel, iSCSI or NFS connection. For virtual only deployments, Direct Storage
+  Access for iSCSI and NFS is possible, but would transport the data through
+  networks of the ESXi hosts.
 
--   For Fibre Channel or iSCSI Direct SAN-based restore is possible only
-	for thick-provisioned VM disks. At restore the datastream needs to be
-    coordinated in the background with vCenter or an ESXi host which can slow down the restore speed. Consider adding additional HotAdd Proxys for restore (FC/iSCSI only).
+-   Restore via Direct Storage Access using Fibre Channel or iSCSI is possible only
+	  for thick-provisioned VM disks. At restore the data stream needs to be
+    coordinated in the background with vCenter or an ESXi host which can slow down the restore speed. Consider adding additional hot-add proxy servers for restore (FC/iSCSI only).
 
 -   Direct SAN mode (FC/iSCSI only) is the most difficult backup mode to
-	configure as it involves reconfiguring not only the storage but also the SAN, (FibreChannel Zoning, LUN masking, or reconfiguration of iSCSI targets) to provide the physical proxy server(s) with direct access to the production VMFS datastores. When such configuration has been implemented it is extremely important to ensure that HBAs, NIC drivers, firmware
-    is up-to-date and that multipathing driver software (e.g. MPIO) is
-    properly configured.
+	configure as it involves reconfiguring not only the storage but also the SAN, (Fibre Channel Zoning, LUN masking, or reconfiguration of iSCSI targets) to provide the physical proxy server(s) with direct access to the production VMFS datastores. When such configuration has been implemented it is extremely important to ensure that HBAs, NIC drivers and firmwares are up-to-date and that multi path driver software (e.g. MPIO) is properly configured.
 
-For more information about configuring Direct SAN Access refer to FAQ
-at [Veeam Community Forums: Direct SAN Access
+For more information about configuring Direct Storage Access refer to FAQ
+at [Veeam Community Forums: Direct Storage Access
 Mode](http://forums.veeam.com/vmware-vsphere-f24/vmware-frequently-asked-questions-t9329.html#p39948)
 
 ## Example
 
-If operating datastores and vRDMs on a block storage that can share the
-LUNs to different Shared Storage systems like Fibre Channel, FCoE and iSCSI. You can add a backup proxy as a member to that shared storage using LUN masking. This will allow for accessing the storage system for backup and restore.
+If datastores or virtual raw device mapping (vRDM) LUNs are connected via shared storage
+using Fibre Channel, FCoE or iSCSI, you may add a backup proxy as a member to
+that shared storage using LUN masking. This will allow for accessing
+the storage system for backup and restore.
 
 Ensure that a connection between the storage and backup proxy can be established. Verify FC HBAs, zoning, multipath, driver software and iSCSI configurations including any network changes. To test the connection it is best practices to count the volumes at windows disk manager adding one disk per storage system at a time. Later add all the others. This will streamline the search for errors.
 
@@ -75,10 +71,10 @@ Ensure that a connection between the storage and backup proxy can be established
   -   Type: REG_DWORD
   -   Value: 0
   -   Default: 1
-  
+
   **Note**: As this reduces the amount of information in debug logs
 	remember to enable it again when working with Veeam support (to
-	facilitate debugging of the Direct SAN Access-related challenges).
+	facilitate debugging of the Direct Storage Access-related challenges).
 
 -   To achieve performance versus cost use fewer proxies with
     more CPU cores available. This will help to fully utilize the HBA or

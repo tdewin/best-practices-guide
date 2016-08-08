@@ -76,13 +76,12 @@ To perform file-level restores for a Windows-based or other OS VM Veeam mounts a
 
 ![Data flow at restore](backup_server_data_flow_2.png)
 
-When file-level recovery is performed from the Veeam backup console two mounts are initiated:
-
+When file-level recovery is performed from the Veeam backup console, two mounts are initiated:
 
 1. The remote console - for displaying restore point contents
 2. The mount server - for performing actual restore traffic to the target VM
 
-**Note:**  When using non Windows a FLR Helper mounts the backup file to recover the file and then mounts for recovery..
+**Note:**  For VMs not running a Windows operating system, a Linux based FLR helper appliance mounts the backup file for reading the file system.
 
 Between 50-400 MB of data is transferred between the console and backup repository. If the first file mount is performed over a slow connection it may take considerable time to load the file-level recovery wizard. If there is significant latency between the backup repository and console, it is recommended to deploy an instance of the console on or closer to the repository server.
 
@@ -150,7 +149,7 @@ guidelines:
 
 8.  Install Veeam Backup Console on the ROBO backup server for faster restore via the local Mount Server
 
-**Note:** The remote console installation files are on the same installation media as Veeam Backup & Replication
+**Note:** The remote console installation files are on the same installation media as Veeam Backup & Replication (`\Backup\Shell.x64.msi`)
 
 #### Constraints
 Please consider the following constraint:

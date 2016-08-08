@@ -11,7 +11,7 @@ based on the organization demands:
 -   In advanced deployment scenarios, the backup proxy role is usually
     assigned to between one or several Windows servers (recommend using  64-bit). This approach allows for offloading the Veeam backup server, achieving better performance and a minimized backup window. Backup proxies can be deployed both
     in the primary site and in remote sites on any managed Microsoft
-    Windows server in the infrastructures. Depending on the data
+    Windows server in the infrastructure. Depending on the data
     transport mode you plan to use a backup proxy can be installed on a
     physical server or on a VM as explained later in this section.
 
@@ -19,7 +19,7 @@ A backup proxy handles data traffic between the VMware vSphere
 infrastructure and Backup & Replication during backup,
 replication (at source and target), VM copy, VM migration jobs or VM restore.
 They are also used to detect and scan snapshots to enable Veeam
-Explorer from Storage SnapShot features if a compatible storage system
+Explorer for Storage Snapshot features if a compatible storage system
 was added to the Backup & Replication Server.
 
 Backup proxy operations include the following:
@@ -28,17 +28,13 @@ Backup proxy operations include the following:
     it to the backup repository (for a backup job) or another backup
     proxy (for a replication job).
 
--   Bitlooker: Windows operating systems using NTFS. Jobs using Veeam InGuest processing including such things as: pagefile, Hypernationfile, deleted files and folder excludes are excluded from processing and replaced by the same amount of zeroes in the backup files. Compression can reduce it dramatically (folder Includes are also available). Be careful not to exclude a lot of files to not slow down processing because of calculation overhead
+-   BitLooker: Applies to VMs running Windows OS and using NTFS. For more information, see the corresponding section of this guide > [Deduplication and Compression - BitLooker](../job_configuration/deduplication_and_compression.md#bitlooker)
 
+-   Inline source side data deduplication to optimize information received by vSphere Change Block Tracking (CBT)
 
--   A backup proxy is also part of Veeam's inline deduplication engine.
-	- For example it starts source side deduplication to optimize Change
-	Block based traffic.
+- 	Inline compression
 
-
-- 	Inline Compression
-
-- 	It performs AES256 encryption if the corresponding option is selected in
+- 	AES256 encryption if the corresponding option is selected in
     the data transportation or backup data settings.
 
 Technically a backup proxy runs a light-weight transport service that
@@ -64,7 +60,7 @@ concurrent tasks** proxy setting (where a task stands for a single VM
 disk), Backup & Replication uses a unique load balancing
 algorithm to automatically spread the load across multiple proxies. This
 feature allows you to increase backup performance, minimize backup time
-window and optimize data flow. By default Backup & Replication sets the self installed proxy to 2 jobs and all user configured proxies analyze the proposed backup proxy CPU configuration setting it to 1 job per cpu, determines the datastores it can access and automatically selects the best transport mode depending on the type of connection between the backup proxy and datastore.
+window and optimize data flow. By default Backup & Replication sets the self installed proxy to 2 jobs and all user configured proxies analyze the proposed backup proxy CPU configuration setting it to 1 job per CPU core, determines the datastores it can access and automatically selects the best transport mode depending on the type of connection between the backup proxy and datastore.
 
 First Backup & Replication checks if data processing can be
 assigned to a backup proxy with the Direct Storage mode (which includes

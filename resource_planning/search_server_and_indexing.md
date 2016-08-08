@@ -66,7 +66,7 @@ Guide](http://helpcenter.veeam.com/backup/em/index.html?indexing_hiw.html).
 
 1.  Veeam Backup & Replication creates a catalog (index) of the VM guest
     OS files and stores index files on the Veeam backup server in the
-    *C:/VBRCatalog/Index/Machines/{vm\_name}* folder. Creation of the index
+    `C:\VBRCatalog\Index\Machines\{vm_name}` folder. Creation of the index
     is extremely fast and has minimal impact on network and
     VMware environment.
 
@@ -74,7 +74,7 @@ Guide](http://helpcenter.veeam.com/backup/em/index.html?indexing_hiw.html).
     indexing service on Veeam Backup Enterprise Manager performs index
     copy — it aggregates index data for all VM image backups from
     multiple backup servers to the Enterprise Manager database while the original index files in the backup servers are deleted to conserve space.
-    The consolidated indexes are stored on the Enterprise Manager server in the *C:/VBRCatalog/Index/catalog* and are used for search queries .
+    The consolidated indexes are stored on the Enterprise Manager server in the `C:\VBRCatalog\Index\Catalog` and are used for search queries .
 
 
 **Important To Note!**
@@ -214,7 +214,7 @@ If you need to use that Veeam Backup Search component (and Microsoft Search Serv
 
 **Note**: Though using content index streamlines the search process the
 index itself can require significant space on disk in
-*C:\\VBRCatalog\\Journal\\\[YYYY\_MM\]\\\[search-server\]*.
+`C:\VBRCatalog\Journal\[YYYY_MM]\[search-server]`.
 
 -   Search Server requires an SQL database for its operation. Consider
     that Microsoft SQL Server Express Edition leverages only one CPU

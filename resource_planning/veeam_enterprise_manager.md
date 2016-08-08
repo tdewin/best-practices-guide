@@ -18,7 +18,7 @@ the following scenarios:
     encrypted with an additional private key which is unique for each
     instance of Enterprise Manager. This will allow Enterprise Manager
     administrators to unlock backup files using a challenge/response
-    mechanism effectively acting as a Private Key Infrastructure (PKI).
+    mechanism effectively acting as a Public Key Infrastructure (PKI).
 
 -   If an organization has a Remote Office/Branch Office (ROBO)
     deployment then leverage Enterprise Manager to provide site

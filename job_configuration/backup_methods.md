@@ -92,7 +92,7 @@ The merging process is performed at the end of the backup job once the retention
 
 The primary advantages of using forever forward incremental backup method are the space savings and very fast, incremental backups. However, the tradeoff is the time required for the merge process. This process can take from minutes to hours depending on the amount of incremental change that the job has to process. However, this merge process impacts only the target storage thus the impact on production is quite low.
 
-Like with synthetic full, it is recommended to have many smaller jobs with a limited number of VMs (20-30), which can significantly increase the performance of synthetic merge process. Very large jobs with more than 100 VMs can experience significant increase in time due to extra metadata processing. This may be remediated by combining forward
+Like with synthetic full, it is recommended to have many smaller jobs with a limited number of VMs, which can significantly increase the performance of synthetic merge process. Very large jobs with more than 100 VMs can experience significant increase in time due to extra metadata processing. This may be remediated by combining forward
 incremental forever mode with [per VM backup files](../resource_planning/repository_planning_pervm.md).
 
 | Use | Don’t Use |

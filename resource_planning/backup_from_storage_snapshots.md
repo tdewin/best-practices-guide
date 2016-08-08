@@ -6,7 +6,7 @@ arrays are currently supported:
 * HPE StoreVirtual (LeftHand)
 * HPE StoreServ (3PAR)
 * NetApp Data ONTAP (FAS, V-Series and IBM N series)
-* EMC VNX and VNXe
+* EMC VNX, VNXe and Unity
 
 Licensing and system requirements are described in the Veeam User Guide:
 [Backup from Storage Snapshots](https://helpcenter.veeam.com/backup/vsphere/backup_from_storage_snapshots.html).

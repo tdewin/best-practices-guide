@@ -1,9 +1,9 @@
 Veeam Backup & Replication Best Practices for VMware
 =======
 
-Version 9 [Update 1](https://www.veeam.com/kb2114)
+Version 9 [Update 2](https://www.veeam.com/kb2147)
 
-Build 9.0.0.1491.
+Build 9.0.0.1715.
 
 All rights reserved. All trademarks are the property of their respective
 owners.

@@ -10,7 +10,7 @@ and 2 GB of RAM for each of the tasks. A task processes 1 VM disk at a time and 
 resources are used for inline data deduplication, compression, encryption and other features that are
 running on the proxy itself.
 
-In the User Guide it is stated that proxy servers required 2 GB RAM + 512 MB per task.
+In the User Guide it is stated that proxy servers require 2 GB RAM + 500 MB per task.
 Please consider these values as minimum requirements. Using the above
 mentioned recommendations allow for growth and additional inline processing features
 or other special job settings that increase RAM consumption.
@@ -70,9 +70,10 @@ replication jobs.
 
 ## How Many VMs per Job?
 
-Best practice is to add 20-50 VMs to a job (30 VMs at about 1000-2000
-VMs; 50 VMs at 5000 VMs). With enabled per VM chains larger jobs can be
-considered. But think about that some of the tasks within a job are still
+* For per job backup files: 30 VMs per job
+* For per VM backup files: 300 VMs per job
+
+Consider that some tasks within a job are still
 sequential processes. For example a merge process that write the oldest
 incremental file into the full file is started after the last VM finishes
 backup processing. If you split the VMs into multiple jobs these background
