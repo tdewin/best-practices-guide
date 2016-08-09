@@ -1,6 +1,6 @@
 # Backup Server Placement
 
-The Backup server runs a number of processes, e.g. the backup Service, backup Manager services and in some scenarios a Mount
+The Backup server runs a number of processes, e.g. the Backup Service, Backup Manager services and in some scenarios a Mount
 Server as well. In this chapter we will evaluate how each of those components are affected by placement of the Backup & Replication server.
 
 By evaluating the roles and understanding the data flow between the services it is possible to optimize overall backup performance and restore throughput significantly.
