@@ -1,7 +1,7 @@
 # WAN Acceleration
 
 By combining multiple technologies such as network compression, multi-threading, dynamic TCP window size,
-variable block size deduplication and global caching, WAN acceleration provides sufficient capability whilst the required network bandwidth is dramatically reduced when performing backup copy and replication jobs. This technology is specifically designed to accelerate Veeam job, and any other WAN acceleration technology should be disabled for Veeam traffic.
+variable block size deduplication and global caching, WAN acceleration provides sufficient capability whilst the required network bandwidth is dramatically reduced when performing Backup Copy and Replication jobs. This technology is specifically designed to accelerate Veeam job. Any other WAN acceleration technology should be disabled for Veeam traffic.
 
 To determine whether WAN acceleration is necessary in an environment, it is important to understand what particular savings can be achieved.
 
@@ -9,8 +9,8 @@ To determine whether WAN acceleration is necessary in an environment, it is impo
 
 When using WAN acceleration on links with very poor bandwidth, you may have to manually seed the initial copy to the target. For more information, refer to the [WAN Acceleration](https://helpcenter.veeam.com/backup/vsphere/wan_acceleration.html) section of the Veeam Backup & Replication User Guide.
 
-The WAN accelerator uses its own digests based on the hashes of the blocks inside the storage which means that it reads data from the backup files while re-hydrating them on the fly.The WAN accelerator
-component will then re-process data blocks with much more efficient data deduplication and compression algorithms. This is the reason why the WAN
+The WAN accelerator uses its own digests based on the hashes of the blocks inside a VM disk, which means that it reads data from the backup files and re-hydrating them on the fly, or it reads directly from the source VM in case of replication. The WAN accelerator
+component will then process those data blocks with much more efficient data deduplication and compression algorithms. This is the reason why the WAN
 accelerator consumes significant amounts of CPU and RAM resources.
 
 To determine how much data has to be transferred over the WAN link with and without WAN acceleration enabled in a backup copy job, you can compare
@@ -52,7 +52,7 @@ When planning for WAN acceleration, review the backup mode used on the primary b
 
 ![](../media/image21.png) 
 
-For example, forward incremental and forever forward incremental methods will make backup copy jobs work much faster, as read operations will be sequential rather than random.
+For example, forward incremental and forever forward incremental methods will make backup copy jobs work much faster, as read operations will be sequential rather than random. To avoid similar fragmentation and random I/O on forward incremental modes, keep [backup storage maintenance](../job_configuration/backup_job.md#storage-maintenance) enabled when possible.
 
 Though a workload penalty may not be significant, it can be a good idea to monitor the storage latency on the backup repository, especially if the reported bottleneck is *Source*. If the storage latency on the
 backup repository is high, it is recommended that you change the backup mode in order to increase the throughput of one pair of WAN accelerators.
@@ -96,7 +96,7 @@ When configuring the cache location for the source WAN accelerator, consider tha
 When configuring the WAN accelerator on the source side, consider that all VM disk data blocks are already in the source backup repository and they can simply be re-read from the source repository when needed. This is the reason why configuring the cache size on a source WAN accelerator does not matter. It is never used for caching any data. However, there are other files residing in the source WAN accelerator folder, and the file structure will be described in the following sections.
 
 ##### Hardware
-The source WAN accelerator will consume a high amount of CPU whilst re-applying the WAN optimized compression algorithm. While official system requirements are lower, the recommended configuration is 4 CPU and 8 GB RAM.
+The source WAN accelerator will consume a high amount of CPU whilst re-applying the WAN optimized compression algorithm. Recommended system configuration is 4 CPU cores and 8 GB RAM.
 
 ![Source WAN accelerator IOPS](./wan_acceleration_source_io.png)
 
@@ -126,7 +126,7 @@ cached in the target WAN accelerator. The size of this file is typically up to 2
 time for the initial data transfer to begin.
 
 ##### VeeamWAN\Digests
-On the source WAN accelerator there are the VM disk digests that take up disk space. For each processed VM disk, a disk digest file is created and placed in `\VeeamWAN\Digests\<Job ID>\<VM ID>\<Disk ID>`.
+On the source WAN accelerator there are the VM disk digests that take up disk space. For each processed VM disk, a disk digest file is created and placed in `\VeeamWAN\Digests\<JobId>_<VMId>_<DiskId>_<RestorePointID>`.
 
 **Note**: Traffic throttling rules should be created in both directions. See [Network Traffic Throttling and Multithreaded Data Transfer](https://helpcenter.veeam.com/backup/vsphere/traffic_throttling.html) for more information.
 
@@ -136,7 +136,7 @@ The following recommendations apply to configuring a target WAN accelerator:
 
 -   The cache size setting configured on the target WAN accelerator will be applied to the pair of WAN accelerators. This should be taken into account when sizing for many-to-one scenarios, as configuring 100 GB cache size will result in 100 GB multiplied by the number of pairs[^1] configured for each target WAN accelerator.
 
--   It is recommended to configure the cache size at 20 GB for each operating system[^2] processed by the WAN accelerator. 
+-   It is recommended to configure the cache size at 10 GB for each operating system[^2] processed by the WAN accelerator. 
 
 -   Once the target WAN accelerator is deployed, it is recommended to use the cache population feature (see [this section](https://helpcenter.veeam.com/backup/vsphere/wan_population.html) of the User Guide for details). When using this feature, the WAN accelerator service will scan through selected repositories for protected operating system types.
 
@@ -154,7 +154,7 @@ For each processed data block, the WAN accelerator will update the cache file (i
 
 ![Target WAN accelerator IOPS](./wan_acceleration_target_io.png)
 
-Tests show that there are no significant performance differences in using spinning disk drives as storage for the target WAN accelerator cache rather than flash storage. However, when multiple source caches are sent to a single target cache in many-to-one deployments, it is recommended to use SSD or equivalent storage for the target cache, as the I/O is now the sum of all the difference sources.
+Tests show that there are no significant performance differences in using spinning disk drives as storage for the target WAN accelerator cache rather than flash storage. However, when multiple source WAN accelerators are connected to a single target WAN accelerator (many-to-one deployment), it is recommended to use SSD or equivalent storage for the target cache, as the I/O is now the sum of all the difference sources.
 
 ##### Disk Size
 Ensure that sufficient space has been allocated for global cache on the target WAN accelerator.

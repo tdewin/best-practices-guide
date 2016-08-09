@@ -60,7 +60,7 @@ Tools on a verified VM.
 
 2.  **PING** tests are initiated according to the masqueraded network configuration. The ping is sent from the Veeam backup server using the static routes added during the job execution. Since the masquerade network is not part of the Veeam backup server's own subnet, the packet is sent to the gateway matching the Virtual Lab network (usually the virtual lab appliance).
 
-3.  **Application-specific testing** uses scripts and is enabled based on the roles assigned to a VM in the application group configuration. The built-in roles will check corresponding TCP ports for a given service, while additional testing is available for SQL Server (see next section). TCP requests are sent from the Veeam backup server, and the routing
+3.  **Application-specific testing** uses scripts and is enabled based on the roles assigned to a VM in the application group configuration. The built-in roles will check corresponding TCP ports for a given service. The built-in role for SQL Server provides additional testing (see next section), and custom scripts may be used for third party applications. Requests are sent from the Veeam backup server, and the routing
 to the virtual machine is handled by the Virtual Lab
 proxy appliance.
 
@@ -117,11 +117,13 @@ If you need to troubleshoot Virtual Lab, it is recommended to start sessions in 
 
 1.  Open up **Statistics** for a SureBackup job.
 
-2.  Right-click any VM.
+2.  Right-click the VM you want to troubleshoot.
 
 3.  Select **Start**.
 
 The SureBackup lab will now start in troubleshooting mode, which means that errors will not cause the Virtual Lab to shut down immediately.
+
+If the selected VM is in an application group, this VM and previous ones are started. If the VM is part of a linked job, the entire Application Group and the selected VM is started.
 
 This mode is especially helpful during an implementation phase while measuring application boot times via vPower NFS, or implementing custom verification scripts. When you have finished troubleshooting, you can stop the SureBackup session manually.
 
@@ -139,13 +141,11 @@ for replicas (SureReplica) as replicas will often span multiple hosts. vSphere
 Distributed Resource Scheduler (DRS) may also distribute VMs across multiple
 hosts within a cluster once they are started.
 
-{% hint style='info' %}
 **Important!** Please check the following help article and the links at the
 bottom of the webpage before you configure Virtual Labs for Distributed vSwitch:
 [Advanced Multi-Host Virtual Labs](https://helpcenter.veeam.com/backup/vsphere/surereplica_advanced_mutihost.html).
-{% endhint %}
 
-Even in environments where Distributed vSwitches are available, make sure that the Veeam backup server and the Virtual Lab proxy appliance are placed in the same port group to prevent network packets (sent to
+Even in environments where Distributed vSwitch is available, make sure that the Veeam backup server and the Virtual Lab proxy appliance are placed in the same port group to prevent network packets (sent to
 the masquerading IP subnets) from being routed.
 
 ![](../media/image17.png)
