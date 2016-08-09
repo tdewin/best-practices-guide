@@ -129,16 +129,21 @@ This mode is especially helpful during an implementation phase while measuring a
 
 ## Virtual Lab in Complex Environments
 
-When using standard vSwitches in a VMware vSphere infrastructure, the Virtual Lab proxy appliance and the isolated networks will run on the same ESXi host. The reason is that standard vSwitches and their port
+When using standard vSwitches in a VMware vSphere infrastructure, the Virtual Lab proxy appliance and the isolated networks must run on the same ESXi host. The reason is that standard vSwitches and their port
 groups are bound to one single host. Since the Virtual Lab port groups are isolated by nature, these networks are not known at the core network in
 terms of VLAN tagging or routing.
 
-When a distributed vSwitch (dvSwitch) is available port groups can span multiple ESXi hosts. Distributed vSwitches are typically required when using Virtual Lab for replicas (SureReplica) as replicas will often
-span multiple hosts. vSphere Distributed Resource Scheduler (DRS) may also distribute VMs across multiple hosts within a cluster once they are
-started.
+When Distributed vSwitch (dvSwitch) is available, port groups can span multiple
+ESXi hosts. Distributed vSwitches are typically required when using Virtual Lab
+for replicas (SureReplica) as replicas will often span multiple hosts. vSphere
+Distributed Resource Scheduler (DRS) may also distribute VMs across multiple
+hosts within a cluster once they are started.
 
-**Important!** Please check the following help article and the links at the bottom of the webpage before you configure Virtual Labs together
-with distributed switches: [Advanced Single-Host Virtual Labs](https://helpcenter.veeam.com/backup/vsphere/surebackup_advanced_vlab.html).
+{% hint style='info' %}
+**Important!** Please check the following help article and the links at the
+bottom of the webpage before you configure Virtual Labs for Distributed vSwitch:
+[Advanced Multi-Host Virtual Labs](https://helpcenter.veeam.com/backup/vsphere/surereplica_advanced_mutihost.html).
+{% endhint %}
 
 Even in environments where Distributed vSwitches are available, make sure that the Veeam backup server and the Virtual Lab proxy appliance are placed in the same port group to prevent network packets (sent to
 the masquerading IP subnets) from being routed.

@@ -1,6 +1,7 @@
 {
     "plugins": [
-        "ga"
+        "ga",
+        "plugin-hints"
     ],
     "pluginsConfig": {
         "ga": {
