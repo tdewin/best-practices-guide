@@ -14,9 +14,9 @@ For additional technical information, the online documentation is available here
 
 Scale-out Backup Repository has two different options for file placement.
 
- ### Data Locality
+### Data Locality
 
- This is is the default policy, and it works by placing all the dependent files of a backup chain into the same extent. Every extent grouped with this policy has the same chances of receiving a backup chain as the algorithm treats them equally, and the major parameter for the initial placement is the free space value.
+This is is the default policy, and it works by placing all the dependent files of a backup chain into the same extent. Every extent grouped with this policy has the same chances of receiving a backup chain as the algorithm treats them equally, and the major parameter for the initial placement is the free space value.
 
 ![SOBR-image02.png](..\media\SOBR-image03.png)
 
@@ -26,6 +26,10 @@ The failure domain is a single extent, as the loss of a given extent impacts onl
 Performance policy places dependent incremental backup files on a different extent from the corresponding fulls. In order to choose which extent will hold the different files when using the performance policy, for each extent users are able to assign it a “role”.
 
 ![SOBR-image02.png](..\media\SOBR-image04.png)
+
+**Important**: When using integrated deduplication devices, virtual synthetic
+operations may not work, if the full and incremental backup files are placed
+on separate extents. Please use Data Locality mode instead.
 
 Users can configure each repository of the group to accept full backups, incremental backups or both. As soon as a new backup chain is stored into a performance Scale-out Backup Repository, the different files are place in accordance to the policy itself.
 

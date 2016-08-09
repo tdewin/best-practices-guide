@@ -45,9 +45,10 @@ required services on that server. When a job is started the Veeam
 Backup & Replication server becomes the point of control for dispatching
 tasks to proxy servers using its built-in load balancing algorithm.
 
-Like all backup vendors that use the VMware VADP API Veeam integrates the
-VMware VDDK Kit into the Proxy Software. This is a necessary step to make
-the management interaction with vCenter and ESXi hosts compatible to VMware when needed, for example  VDDK can be bypassed when using Backup from Storage Snapshots (BfSS).
+Like any backup vendor using VMware VADP, Backup & Replication integrates
+VMware VDDK in the Veeam Transport Service. This is necessary for management
+interaction with vCenter and ESXi hosts, while in some scenarios, VDDK is bypassed to
+optimize performance.
 
 Backup data VDDK based transport modes underlay some limitations so Veeam developed it´s own more advanced communication protocols to address
 them. For example Veeam can backup multiple disks of the same VM at same time with HotAdd mode or can read data with Direct NFS mode directly out of
@@ -60,7 +61,14 @@ concurrent tasks** proxy setting (where a task stands for a single VM
 disk), Backup & Replication uses a unique load balancing
 algorithm to automatically spread the load across multiple proxies. This
 feature allows you to increase backup performance, minimize backup time
-window and optimize data flow. By default Backup & Replication sets the self installed proxy to 2 jobs and all user configured proxies analyze the proposed backup proxy CPU configuration setting it to 1 job per CPU core, determines the datastores it can access and automatically selects the best transport mode depending on the type of connection between the backup proxy and datastore.
+window and optimize data flow.
+
+The default proxy server is configured for 2 simultaneous tasks at installation,
+whereas subsequently added proxy servers analyze the CPU configuration. The proxy
+server automatically proposes configuring 1 task per CPU core. During deployment,
+it is determined which datastores the proxy can access. This information is stored
+in the configuration database, and is used at backup time to automatically select
+the best transport mode depending on the type of connection between the backup proxy and datastore.
 
 First Backup & Replication checks if data processing can be
 assigned to a backup proxy with the Direct Storage mode (which includes
@@ -131,12 +139,9 @@ Veeam backup proxy uses the following services and components:
     deduplication and compression, and so on).
 
 -   **VeeamAgent.exe process** - a data mover which can be started
-    multiple times (on demand) for each data stream on the proxy. These processes work in read-and-write modes starting for reads of data on a
-    source backup proxy and for writing data on a target backup proxy
-    (replication), gateway proxy (for a CIFS repository) or on a
-    repository itself. In a per Job Backup chain many read agents are
-	started that write to a single write agent per Job. At per VM chains
-	a "write" agent is started once per VM that actively are backed up.
-
-
-<!-- AN2016 21.06.2016 -->
+    multiple times (on demand) for each data stream on the proxy.
+    These processes can operate in either read or write mode. When used on a
+    proxy server for backup, they are only performing read operations, while
+    "write" mode is used for writing data on a target backup proxy
+    (replication). Veeam agents in write mode are also used on all repository
+    types, but will not be discussed in this chapter.

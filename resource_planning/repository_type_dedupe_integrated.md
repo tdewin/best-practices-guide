@@ -33,7 +33,7 @@ Selecting StoreOnce appliance as a repository will automatically recommend job a
 
 When using HPE Catalyst, consider the following recommendations:
 
-If the Catalyst Store is configured as **High Bandwidth** on the appliance, Low Bandwidth mode can be forced using the following registry value:
+If the Catalyst Store is configured as **High Bandwidth** on the appliance, Low Bandwidth mode can be forced using the following registry value (ideally, work around the issue by configuring both Primary and Secondary modes to "Low"):
 
 -   Path: `HKEY_LOCAL_MACHINE\SOFTWARE\Veeam\Veeam Backup Transport`
 -   Key: `UseLowBandwithMode`

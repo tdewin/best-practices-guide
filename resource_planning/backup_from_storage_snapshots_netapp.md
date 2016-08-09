@@ -67,6 +67,6 @@ VMs that ends in 3 Snapshots for one run. It is recommended to not set
 the value higher than 3 or disable the automatic retry to avoid a high
 number of Snapshots being created during every run.
 
-One of the big benefits is that you’re still able to use all Veeam
-restore capabilities out of the storage Snapshots. For more please read
-the “Veeam Explorer for Storage SnapShot” section.
+One of the big benefits is that you are still able to use all Veeam
+restore capabilities from storage snapshots. For more please refer to
+the [Veeam Explorer for Storage Snapshots](./veeam_explorers.md#explorer-for-storage-snapshots) section.

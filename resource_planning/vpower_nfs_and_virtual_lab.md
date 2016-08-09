@@ -145,8 +145,9 @@ hosts within a cluster once they are started.
 bottom of the webpage before you configure Virtual Labs for Distributed vSwitch:
 [Advanced Multi-Host Virtual Labs](https://helpcenter.veeam.com/backup/vsphere/surereplica_advanced_mutihost.html).
 
-Even in environments where Distributed vSwitch is available, make sure that the Veeam backup server and the Virtual Lab proxy appliance are placed in the same port group to prevent network packets (sent to
-the masquerading IP subnets) from being routed.
+Even in environments where Distributed vSwitch is available, make sure that the
+Veeam backup server and the Virtual Lab proxy appliance are placed in the same
+subnet to prevent network packets (sent to the masquerading IP subnets) from being routed.
 
 ![](../media/image17.png)
 

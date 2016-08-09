@@ -199,11 +199,9 @@ recommendations:
 
 -   **Consider snapshot impact during job scheduling.**
     When possible, schedule backups and replication job during periods
-    of low activity. Leveraging the Backup Window functionality (see the
-    corresponding setting on the **Schedule** tab of the job wizard
-    - more info in
-    [Helpcenter](https://helpcenter.veeam.com/backup/vsphere/vm_copy_schedule.html))
-    can keep long-running jobs from running during production.  
+    of low activity. Leveraging the [Backup Window](https://helpcenter.veeam.com/backup/vsphere/vm_copy_schedule.html)
+    functionality can keep long-running jobs from running during production.
+    See the corresponding setting on the **Schedule** tab of the job wizard
 
 -   **Use the vStorage APIs for Array Integration (VAAI)
     where available.** VAAI can offer significant benefits:
@@ -353,7 +351,7 @@ Veeam Snapshot Hunter automatically detects any VM with the configuration
 issue “Virtual machine disks consolidation needed”. Prior to performing
 backup of such VMs, Veeam Backup & Replication will trigger disk
 consolidation (provided that the datastore performance threshold
-specified in the [Backup I/O Control](http://helpcenter.veeam.com/backup/80/vsphere/index.html?options_parallel_processing.html)
+specified in the [Storage Latency Control](http://helpcenter.veeam.com/backup/80/vsphere/index.html?options_parallel_processing.html)
 settings is not exceeded).
 
 Snapshot Hunter will attempt consolidation eight (8) times. If
@@ -387,51 +385,51 @@ simultaneously. The impact of having many proxy servers reading data
 blocks from the production storage at a very high throughput may be
 negative. With this in mind, many businesses avoided running backup or
 replication jobs during business hours to ensure good response time for
-their end users. Backup I/O Control was implemented to help avoid this
+their end users. Storage Latency Control was implemented to help avoid this
 issue.
 
-When Backup I/O Control is enabled, it monitors the storage read latency
+When Storage Latency Control is enabled, it monitors the storage read latency
 on the production datastores using real-time metrics from the
 hypervisor. By default, metrics from the hypervisor are collected every
 20 seconds. These settings are inherited from vSphere.
 
-The first Backup I/O Control threshold **Stop assigning new tasks to
+The first Storage Latency Control threshold **Stop assigning new tasks to
 datastore at** puts a limitation on assigning new tasks (one task equals
 one VM disk). If the latency for a particular datastore is exceeded, no
 more proxy tasks will be assigned to it, until the latency drops below
 the threshold.
 
 If limiting the number of tasks assigned to the datastore is not
-sufficient, Backup I/O Control will throttle the throughput for existing
+sufficient, Storage Latency Control will throttle the throughput for existing
 tasks according to the second threshold **Throttle I/O of existing tasks
 at**.
 
 ![](../media/image28.png)
 
-The results of enabling Backup I/O Control are very easy to review using
+The results of enabling Storage Latency Control are very easy to review using
 the vSphere Client.
 
 ![](../media/image29.png) 
 
 ### When to Use?
-Backup I/O Control provides a smart way to extend backup windows or even
+Storage Latency Control provides a smart way to extend backup windows or even
 eliminate backup windows, and run data protection operations during
 production hours.
 
-When Backup I/O Control is enabled, Veeam Backup & Replication measures
+When Storage Latency Control is enabled, Veeam Backup & Replication measures
 the storage latency before processing each VM disk (and also during
 processing, if **Throttle I/O of existing tasks at** setting is
 enabled). Furthermore, if the storage latency for a given datastore is
 already above the threshold, committing VM snapshots can be delayed. In
-some environments, enabling Backup I/O Control will reduce the overall
+some environments, enabling Storage Latency Control will reduce the overall
 throughput, as latency increases during the backup window.
 
 However, in most environments having this feature enabled will provide
 better availability to production workloads during backup and
 replication. Thus, if you observe performance issues during backup and
-replication, it is recommended to enable Backup I/O Control.
+replication, it is recommended to enable Storage Latency Control.
 
-Backup I/O Control is available in Enterprise and Enterprise Plus
+Storage Latency Control is available in Enterprise and Enterprise Plus
 editions. The Enterprise Plus customers are offered better granularity,
 as they can adjust latency thresholds individually for each datastore.
 This can be really helpful in infrastructures where some datastores

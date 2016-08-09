@@ -63,7 +63,7 @@ Synthetic full summarize the information stored in the most recent file chain (V
 
 If a synthetic full is scheduled, when the job runs, it first creates a normal incremental backup to collect the most recent changes.
 
-After the job completes this the incremental backup, the synthetic full generation is stared. It reads the most recent version of each block for every VM in the job from the backup chain and writes those blocks to a new VBK file. This is how a new full backup is created.
+After the job completes this the incremental backup, the synthetic full generation is started. It reads the most recent version of each block for every VM in the job from the backup chain and writes those blocks to a new VBK file. This is how a new full backup is created.
 
 #### I/O Impact of Synthetic Full
 
@@ -102,15 +102,15 @@ incremental forever mode with [per VM backup files](../resource_planning/reposit
 
 ## Reverse Incremental
 
-At its first run, reverse incremental backup creates a full backup file (VBK). All subsequent backups are incremental, that is, only changed data blocks are copied (using CBT if available). During the incremental backup, changed blocks are written directly into the full backup, while replaced blocks are taken out and copied into a rollback file (.VRB).
+At its first run, reverse incremental backup creates a full backup file (VBK). All subsequent backups are incremental, that is, only changed data blocks are copied. During the incremental backup, changed blocks are written directly into the full backup, while replaced blocks are taken out and copied into a rollback file (.VRB).
 
-This method provides space-efficient backup, as there is only one full VBK to store. It also facilitates granular retention, since removing old points is simply a matter of deleting old VRB files. Additionally, restore operations from the most recent point in time are faster, is the most recent point in time is always the full backup (VBK).
+This method provides space-efficient backup, as there is only one full VBK to store. It also facilitates granular retention, since removing old points is simply a matter of deleting old VRB files. Additionally, restore operations from the most recent point in time are faster, as the most recent point in time is always the full backup (VBK).
 
 The disadvantage is that creation of rollback files occurs during the backup process itself, which results in high I/O load on the target storage and can slow the backup process down. This could be a matter of concern especially for the VMs that experience high change rates.
 
 Over time, this also causes fragmentation of the VBK file. It is
 recommended to enable compacting on backup jobs running in reverse
-incremental mode.
+incremental mode without periodical active full backups enabled.
 
 ![](../media/image33.png)
 

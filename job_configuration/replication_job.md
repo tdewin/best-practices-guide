@@ -226,7 +226,7 @@ source and remote sites. For more information, see the User Guide
 <https://helpcenter.veeam.com/backup/vsphere/wan_acceleration.html>
 or the present document (the “WAN Acceleration“ section above).
 
-### Replcation from Backups
+### Replication from Backups
 
 When using replication from backup, the target VM updates
 directly from the backup files created by a backup or backup copy job.

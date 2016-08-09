@@ -51,10 +51,12 @@ protection will be unavailable.
 ### 1-Click File-level Restore
 With Enterprise Manager you can restore VM guest files with a single
 click. To support this capability the VM restore point must be created
-with guest OS indexing enabled. Guest file indexing allows you to search
-for VM guest OS files inside VM backups.
+with application-aware image processing enabled. Additionally, if guest file system
+indexing is enabled, it is possible to search for files across VM backups.
 
-**Note:** It is possible to restore VM guest files even when file indexing is disabled. This does require the restore operator to type in guest OS credentials during the restore.
+**Note:** It is possible to restore VM guest files even when application-aware
+image processing or file indexing is disabled. If both are disabled, the
+restore operator must type in guest OS credentials during a file-level restore.
 
 The backup catalog on the Enterprise Manager server will be used to
 store indexing data replicated from the backup catalog on Veeam
@@ -111,7 +113,7 @@ Enterprise Manager or in a trusted one (for SID resolution)
 
 The process goes as follows:
 
-1.  During the backup of a VM with indexing enabled Veeam detects users
+1.  During the backup of a VM with guest processing enabled, Veeam detects users
     who have local administrator access rights to that machine and
     stores this information in the Enterprise Manager database.
 

@@ -30,12 +30,10 @@ indexing as described for example in [this
 section](http://helpcenter.veeam.com/backup/em/index.html?em_indexing_options.html)
 of the Veeam Backup Enterprise Manager User Guide
 
-
-
 ### How Veeam Indexing Works
 
-Veeam indexing creates a separate Catalog (index) file for each restore point,
-These index files can then be used by Veeam Enterprise Manager to support
+Veeam indexing creates a separate index file in the catalog for each restore point.
+These index files are used by Veeam Enterprise Manager to support
 file browsing or searching without a need to mount the restore point to
 the mount server. Users can quickly search for files across
 multiple restore points viewing the required file history when looking for
@@ -80,23 +78,36 @@ Guide](http://helpcenter.veeam.com/backup/em/index.html?indexing_hiw.html).
 **Important To Note!**
 - To search within the index catalog it is necessary to
 deploy Veeam Backup Enterprise Manager, this component is in charge
-of catalog data replication and retention (see [this
-section](http://helpcenter.veeam.com/backup/em/index.html?veeam_backup_catalog.html) of the User Guide for more details).
-- If you enable indexing without configuring Enterprise Manager the catalog files in the *VBRCatalog* folder of the backup server will never be collected or deleted and will eventually fill up the disk drive.
+of catalog data replication and retention (see [this section](http://helpcenter.veeam.com/backup/em/index.html?veeam_backup_catalog.html) of the User Guide for more details).
+- If you enable indexing without configuring Enterprise Manager the indexes in the *VBRCatalog* folder of the backup server will never be collected or deleted and will eventually fill up the disk drive.
 
 
+### Temporary VM Disk Usage
 
-.
-
-### Sizing Veeam Catalog
-
-Estimated raw space of the final index file is approximately 2 MB per
-1,000,000 files for a single VM restore point on the Enterprise Manager
-server in the backup files and temporary folders on the Veeam backup
-server own catalog. During the indexing process indexing information is
+During the indexing process indexing information is
 temporarily stored on the local VM guest requiring additional free
-space on the system drive. Estimated free space is up to 20MB per
-1,000,000 files.
+space on the system drive.
+
+#### Windows VM
+Temporary space required on the first drive in the VM (`С:\` drive):
+
+**100 MB per one million files**
+
+This was tested with one million
+files with 20 characters long filenames in one directory. Depending on the saved
+metadata and folder structure of the files, the value can be lower or
+higher.
+
+#### Linux VM
+Temporary space required in `/tmp`:
+
+**50 MB per one million files**
+
+Linux indexes require
+around 50% less space because `mlocate` does not index
+metadata such as timestamps and ownership.
+
+### Sizing Enterprise Manager Catalog
 
 The Veeam Catalog Service is responsible for maintaining index data.
 When running on the backup server this catalog service will
@@ -114,33 +125,17 @@ appropriately to hold all data from the remote Veeam servers.
     being 3 months. This can significantly increase the amount of space
     required for the catalog.
 
+Estimated used space of the final index file after compression is
+approximately 2 MB per 1,000,000 files for a single VM restore point
+on the Enterprise Manager server. The indexes are also stored
+in the backup files and temporary folders on the backup server.
+
 #### Example
+Below is an example that summarizes the information above. The example
+is given _per_ indexed VM containing 10,000,000 files.
 
-There are two backup jobs configured to process 2 VMs, with 10,000,000
-files per each VM. Backup jobs run two times a day, producing 60 restore
-points a month. The default Enterprise Manager setting is used for
-catalog retention (3 months).
-
-Space required on the first drive in the VM (*С:\\* drive) can be
-calculated as follows:
-
--   For Windows VMs: 100 MB per one million files and directories of all
-    saved restore points with indexing enabled.
-
-**Note:** This was tested with one million randomly named
-20-character-long filenames in one directory. Depending on the saved
-metadata and folder structure of the files, the value can be lower or
-higher.
-
--   For Linux VMs: 50 MB per one million files and directories of all
-    saved restore points with indexing enabled. Linux indexes require
-    round about 50% less space because **mlocate** does not index any
-    metadata (such as timestamps and ownership information).
-
--   For Enterprise Manager: 20 MB per one million files \* 60 restore
-    points per month \* 3 months (for default Enterprise
-    Manager retention). A total of 3.5 GB per indexed VM with
-    10,000,000 files.
+`2 MB * 10 million files * 60 restore
+points per month * 3 months index retention = 3.5 GB`
 
 ### Recommended Settings
 
@@ -190,7 +185,7 @@ Follow these recommendations when setting up Veeam indexing:
 ### Using Veeam Backup Search (Optional Component)
 
 In its early versions Veeam did not have its own indexing engine,
-instead it used a connector named Veeam Backup Search to connect to the
+instead it used the Veeam Backup Search component to connect to the
 Microsoft Search Server 2010 that provided search capabilities. Now Veeam has its own built in indexing engine developed specifically for this purpose.
 
  It is no longer a requirement to have a Veeam Backup Search configured as Veeam Integrated indexing engine can be more performant.
