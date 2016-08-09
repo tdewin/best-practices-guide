@@ -25,7 +25,7 @@ The following configuration prerequisites must be met:
 
 | Connection Type | Compatibility|
 |---|---|
-| FC/SAS/SCSI/FCoE/Infiniband/iSCSI or other block technology to physical Tape Proxy | Supported with Windows driver as long as the tape vendor support the connection.  (“Unknown media changer” support for FC/SAS and VTLs)|
+| FC/SAS/SCSI/FCoE/Infiniband/iSCSI or other block technology to physical Tape Proxy | Supported with Windows driver as long as the tape vendor supports the connection.  (“Unknown media changer” support for FC/SAS and VTLs)|
 | FC/SAS redirect to VMware VM | Unsupported |
 | FC/SAS redirect to Hyper-V VM | Unsupported |
 | FC/SAS to iSCSI Converter/Bridge | Supported |
@@ -69,10 +69,9 @@ there is a community validated list available on the Veeam forums:
 ### Media Pool
 
 A media pool simply defines a group of tapes managed by Veeam Veeam
-Backup & Replication. Media pools are of three kinds:
+Backup & Replication. There are three types of media pools:
 
--   **Service media pools** that are created and managed automatically.
-    You cannot create them manually or modify their settings.
+-   **Service media pools**. Created and managed automatically. It is not possible to modify their settings. They contains:
 
 	-   Empty media starts out in the **Free pool** indicating it’s
     available for use in other pools.
@@ -88,8 +87,7 @@ Backup & Replication. Media pools are of three kinds:
     are not used further.
 
 
--   **Tape media pools** that are created by the user. These are
-    groups of media to which backup data can be written.
+-   **Media pools** are groups of media to which backup data can be written.
 
     -   You can create as many custom media pools as needed.
 
@@ -105,8 +103,8 @@ Backup & Replication. Media pools are of three kinds:
         tape systems together and to failover to another tape library in
         case one library goes offline.
 
-- 	**GFS Tape media pools** are as well created by the user and can
-	be used to store weekly, monthly, quarterly and yearly backups on tape.
+- 	**GFS media pools** are used to store weekly, monthly, quarterly and
+		yearly backups on tape.
     -   You can create as many GFS tape pools as needed.
 
     -   Media can be assigned to a pool manually, or configured to be
@@ -116,11 +114,6 @@ Backup & Replication. Media pools are of three kinds:
     -   Configure each pool settings according to the purpose of the
         pool, such as the overwrite protection period that is applied to
         all media within the pool.
-
-    - 	Since v9 a (Custom) Tape Pool can be spanned over multiple tape
-    	libraries. The idea is to use the capacity and drives of multiple
-        tape systems together and to failover to another tape library in
-        case one library goes offline.
 
 ### Media Set
 

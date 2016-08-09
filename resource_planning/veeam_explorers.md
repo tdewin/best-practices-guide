@@ -25,7 +25,7 @@ For Microsoft Active Directory, also check the tombstone lifetime settings, as d
 
 If you have special features/enhancements/configuration settings on the production Microsoft SQL and/or Microsoft SharePoint server to be protected with Veeam, these custom settings should be implemented on the staging SQL Server, too.
 
-One special case of custom settings that have to be configured on staging server is encryption. When performing restore/export of encrypted database please refer to [KB2006](https://www.veeam.com/kb2006) for details on configuring the staging server.
+One special case of custom settings that must be configured on staging server is encryption. When performing restore/export of encrypted database please refer to [KB2006](https://www.veeam.com/kb2006) for details on configuring the staging server.
 
 ## Explorer for Oracle
 

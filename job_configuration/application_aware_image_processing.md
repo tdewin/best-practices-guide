@@ -107,7 +107,7 @@ Since guest processing produces very low impact on VM performance, no special co
 
 ## File exclusions
 
-Another operation Veeam Backup can do on guest OS level (Windows OS only) is excluding certain files or folders from the backup. Alternatively the job can be configured to include only specified files or folders in the backup.
+Another operation Veeam Backup can do on guest OS level (NTFS only) is excluding certain files or folders from the backup. Alternatively the job can be configured to include only specified files or folders in the backup.
 
 This functionality operates very similarly and shares a lot of characteristics with excluding Windows page file and deleted file blocks. It may help reduce size of the backup files or implement additional data protection strategies for specific data. Backups for which this option was enabled remain image-level and hypervisor APIs are used to retrieve VM data. File exclusion feature uses a combination of NTFS MFT data and guest file system indexes collected by in-guest coordination process to determine which virtual disk blocks belong to the excluded files and thus should not be included in the backup.
 

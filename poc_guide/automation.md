@@ -1,11 +1,15 @@
 # Automation
 The bigger is the environment, the more automation is needed to reduce the administration effort. For example, if operating 40 branch offices with independent Veeam installations, you may want to roll out and configure backup servers with scripts and automatically create jobs there as well. Another example is automatic job creation for 2,000-3,000 VMs with exactly the same configurations, which can limit user-caused misconfiguration.
 
-## PowerShell
-Operations in Veeam Backup & Replication can be automated with Veeam PowerShell snap-in in the following areas:
+## Command line
+Following operations are managed through the Windows command line:
 
 * Installation - [Link to Help Center](https://helpcenter.veeam.com/backup/vsphere/silent_mode.html)
 * Updates - [Link to Help Center](https://helpcenter.veeam.com/backup/vsphere/update_unattended.html)
+
+## PowerShell
+Operations in Veeam Backup & Replication can be automated with Veeam PowerShell snap-in in the following areas:
+
 * Configuration
 * Job creation/job editing
 * Working with external schedulers (UC4/TWS and other) to start Veeam jobs
