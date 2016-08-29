@@ -114,10 +114,7 @@ VM disks at the first replication run. As replication restore points are
 based on VMware snapshots, that are thin provisioned by definition, Veeam
 will failback to Virtual Appliance (HotAdd) mode or Network mode, if configured at
 proxy transport settings. Direct SAN mode or backup from storage
-snapshots can be used on the source side in any scenario. See this topic
-on Veeam forum:
-<http://forums.veeam.com/veeam-backup-replication-f19/direct-san-replication-t23748.html#p122526>
-(please log in to view this forum board).
+snapshots can be used on the source side in any scenario.
 
 ### Onsite Replication
 
@@ -203,7 +200,7 @@ In most cases, Veeam do not need a vCenter Server for replica target
 processing. It can be best practice to add the ESXi hosts from the replica
 target side (only) directly to Veeam Backup & Replication as managed
 servers and to perform replication without vCenter Server on the target side.
-In this szenario a failover an be performed from the Veeam console without
+In this scenario a failover an be performed from the Veeam console without
 an working vCenter Server itself (for example to failover the vCenter Server).
 
 Replication bandwidth estimation has always been a challenge, because it

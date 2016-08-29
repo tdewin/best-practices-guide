@@ -44,7 +44,7 @@ Ensure the account used to connect to target/staging server has enough permissio
 ### Restore workflow
 
 When performing restore Veeam follows the following steps:
-1. Oracle instance/database discovery is performed and information is collected, that includes path validation and sisk space availability checks.
+1. Oracle instance/database discovery is performed and information is collected, that includes path validation and disk space availability checks.
 2. VM disks are mounted.
 3. Target database is shut down and dropped, configuration is cleaned (configuration and temporary instance files).
 4. Database is started from the temporary location, if that fails another restore attempt is performed with safe set of parameters.

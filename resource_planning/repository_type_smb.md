@@ -35,6 +35,4 @@ Here are some recommendations for managing backup proxies used as gateway server
 
 ![](../media/image12.png)
 
-**NOTE for Creative: rework the image with SMB instead of CIFS NAS**
-
 Scaling out using this approach will allow for processing larger amounts of data and optimize the throughput of the SMB shares. Best practice for large scale environments is to use at least a mid range or enterprise NAS storage system that provides good I/O performance. Low end NAS devices often have non official implementations of the SMB protocol that may improve performance test results, but may also corrupt backup files. For these devices it is discouraged to use SMB.

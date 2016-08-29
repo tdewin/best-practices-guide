@@ -147,7 +147,7 @@ If the selected VM is in an application group, this VM and previous ones are sta
 
 This mode is especially helpful during an implementation phase while measuring application boot times via vPower NFS, or implementing custom verification scripts. When you have finished troubleshooting, you can stop the SureBackup session manually.
 
-**Tip:** On the Virtual Lab appliance, ICMP traffic is blocked on all network interfaces connected to isolated networks, unless you check the "Allow proxy appliance to act as internet proxy for virtual machines in this lab". Unless checked, this may cause some versions of Windows Server to switch a network interface to a different network profile (i.e. from Domain to Public). This may lead to some tests failing.
+**Tip:** On the Virtual Lab appliance, ICMP traffic is blocked on all network interfaces connected to isolated networks, unless you check the "Allow proxy appliance to act as internet proxy for virtual machines in this lab". This may lead to undesired behavior of some systems, as they will be unable to ping their gateway.
 
 ## Virtual Lab in Complex Environments
 

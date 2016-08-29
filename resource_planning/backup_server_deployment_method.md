@@ -1,5 +1,5 @@
 # Deployment Method
-You may deploy the Veeam Backup & Replication server as either a physical or virtual server. It will run on any server with Windows Server 2008 R2 or higher installed. Depending on the environment here are some guidelines that may help in deciding which deployment type is the best fit.
+You may deploy the Veeam Backup & Replication server as either a physical or virtual server. It will run on any server with Windows Server 2008 R2 or higher installed (64-bit only). Depending on the environment here are some guidelines that may help in deciding which deployment type is the best fit.
 
 ## Virtual deployment
 If installed in a virtual machine the VM can be replicated to a

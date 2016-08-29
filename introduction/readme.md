@@ -11,7 +11,7 @@ via your local Veeam Software representative.
 
 {% if output.name == "ebook" %}
 
-As you possess a downloaded version of this e-book[^1], you will notice many references
+As you possess a downloaded version of this e-book, you will notice many references
 to external resources for additional information.
 
 The e-book is optimized for
@@ -59,5 +59,3 @@ refer to the corresponding
 * Stanislav Simakov ([@ssimakov](https://twitter.com/AndyandtheVMs))
 * Paul Szelesi ([@PSzelesi](https://twitter.com/PSzelesi))
 * Luca Dell'Oca ([@dellock6](https://twitter.com/dellock6))
-
-[^1]: This e-book is generated on {{ gitbook.time }}

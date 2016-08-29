@@ -3,7 +3,7 @@
 ## Overview
 Deduplication applied to storage is a technique aimed at reducing the storage space consumption.
 
-Deduplicated storage systems are often optimized for write operations and can offer rather high ingest rates. However, any random read I/O (thus, restore operations) may suffer from re-hydration processes required during restores. For this reason we recommend to use these devices mainly as secondary targets, where parameters like price per GB are more important than restore performance.
+Deduplicated storage systems are often optimized for write operations and can offer rather high ingest rates. However, any random read I/O may suffer from re-hydration processes required during restores. For this reason we recommend to use these devices mainly as secondary targets, where parameters like price per GB are more important than restore performance.
 
 ## Using a Deduplication Appliance
 As a storage-agnostic product, Veeam Backup & Replication can use any deduplication appliance as a repository in different use cases: primary backup repository, backup copy repository, and Virtual Tape Library (VTL) container.
