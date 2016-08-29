@@ -79,7 +79,9 @@ For more information, please see Veeam Helpcenter:
 
 Chaining backup jobs is convenient in certain circumstances, but should be used with caution. For example, if a job in such chain fails or stops responding, the entire job chain delivers poor backup success rate.
 
-A most common way to handle multiple jobs is to let the built-in Intelligent Load Balancing (ILB) handle the proxy/repository resources by starting multiple jobs in parallel by using all available proxy/repository resources. This will typically allow the shortest the backup window.
+A common way to handle multiple jobs is to let the built-in Intelligent Load Balancing (ILB) handle the
+proxy/repository resources by starting multiple jobs in parallel by using all available proxy/repository
+resources. This allows optimal task scheduling and provides the shortest backup window.
 
 ## Load Balancing
 When planning jobs schedule, you should consider balancing the load on source and target disks. Too many jobs accessing the same disk will load the storage significantly; this makes the job run slower or may have a negative impact on the VMs performance. To mitigate this problem, you can utilize [Storage Latency Control](../resource_planning/interaction_with_vsphere.md#storage-latency-control) (or Backup I/O Control) settings.
