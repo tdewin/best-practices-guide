@@ -9,7 +9,9 @@ based on the organization demands:
     Veeam Backup & Replication installation process.
 
 -   In advanced deployment scenarios, the backup proxy role is usually
-    assigned to between one or several Windows servers (recommend using  64-bit). This approach allows for offloading the Veeam backup server, achieving better performance and a minimized backup window. Backup proxies can be deployed both
+    assigned to one or more Windows servers. This approach allows
+    for offloading the Veeam backup server, achieving better performance
+    and a minimal backup window. Backup proxies can be deployed both
     in the primary site and in remote sites on any managed Microsoft
     Windows server in the infrastructure. Depending on the data
     transport mode you plan to use a backup proxy can be installed on a
@@ -90,32 +92,29 @@ the load across them in an optimal way:
 
 3.  Priority goes to the disk that belongs to an already
     processed VM, after that VMs of already running jobs have next higher
-	priority. Short-term scheduled jobs take priority over
-    long-term scheduled jobs (like daily or weekly jobs).
+    priority. 
 
+**Tip:** At the repository, which writes the backup data, only one
+thread is writing to the backup storage _per running job_. If few jobs
+with a high number of VMs are processed simultaneously, you may experience
+that these threads are not sufficient to fully utilize backup storage 
+performance. If throughput per I/O stream is a bottleneck, consider
+enabling "Per VM backup chains".
 
-**Tip:** At the repository which writes the backup data, only one
-    write stream is started to the backup storage per job. Job priority together with jobs to be run with a large amount of
-    VMs can lead to the situation that only 1-3 target write streams
-    can become the bootleneck in the backup processing. Consider
-	enabling "Per VM backup chain" at the repository to address this.
-
-**Tip:** Default recommended value is **1** task per Core/vCPU, with no
-less than 2 cores as minimum. To
-optimize the backup window, you can cautiously oversubscribe the **Max
-concurrent tasks** count, but monitor CPU and RAM usage carefully.
+**Tip:** Default recommended value is **1** task per core/vCPU, with at least
+2 CPUs. To optimize the backup window, you can cautiously oversubscribe the
+**Max concurrent tasks** count, but monitor CPU and RAM usage carefully.
 
 **Veeam Backup & Replication supports parallel processing of VMs/VM disks:**
 
 -   It can process multiple VMs within a Job simultaneously increasing
-	data processing efficiency.
+    data processing efficiency.
 
 -   If a VM was created with multiple disks Veeam will try to process
     these disks simultaneously to reduce VM backup time to minimize
-	VMware snapshot lifetime.
+    VMware snapshot lifetime.
 
-- 	Priority goes to already running parallel processes for VM disks backups. After all these disks are backed up, VMs from existing running
-	jobs take priority. As well as highly frequent scheduled jobs which are prioritized higher.
+- 	Priority goes to already running parallel processes for VM disks backups.
 
 To achieve the best backup window it is recommended to slightly oversubscribe the tasks slots and start more jobs. This allow Veeam to leverage the maximum of the task slots and lead into an optimal backup window.
 
