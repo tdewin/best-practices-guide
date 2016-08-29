@@ -1,16 +1,16 @@
 # Direct Storage Access
 
-Under "Direct Storage Access" mode selection Veeam summarize the VMware own
-"Direct Storage Access" and the Veeam own  "Direct NFS Access" modes.
+When using "Direct Storage Access", Veeam summarizes VMware's
+VDDK based "Direct SAN" mode, and Veeam's proprietary "Direct NFS".
 
-The Direct Storage Access Mode uses a direct data path (a Fibre Channel or iSCSI) between the VMFS datastore and the backup proxy for
-data transfer. The Proxy need at least read access to the datastores so
-Fibre Channel Zoning, Networking and LUN masking on the Storage need to
+The Direct SAN mode uses a direct data path (Fibre Channel or iSCSI) between the VMFS datastore and the backup proxy for
+data transfer. The proxy needs at least read access to the datastores so
+Fibre Channel zoning, Networking and LUN masking on the storage need to
 reflect this.
 
-To use Direct NFS backup mode the Proxies need access to the NFS network
-and need to be member of the NFS Storage System "export policy" for read-
-write access.
+To use Direct NFS backup mode, the proxies need access to the NFS network
+and need to be member of the NFS storage server's "export policy" for read
+and/or write access.
 
 ## Pros
 
@@ -30,7 +30,7 @@ write access.
 
 ## Cons
 
--   Typically Direct Storage Access requires a physical server for a Fibre
+-   Typically Direct Storage Access requires a physical server for Fibre
 	Channel, iSCSI or NFS connection. For virtual only deployments, Direct Storage
   Access for iSCSI and NFS is possible, but would transport the data through
   networks of the ESXi hosts.
@@ -88,9 +88,11 @@ During deployment of the proxy role to a Windows VM, Backup &
 Replication uses the following security mechanisms to protect them:
 
 -   Changes the Windows SAN Policy to "Offline (shared)". This prevents
-    Windows from bringing the attached volumes online and also prevents
-    Windows write operations to the volumes. However if you want to be
-    able to restore thick VM disks by this mode you have to disable `automount` and enable the volumes. If you set the disks read only Veeam will choose another restore mode and it will failover to NBD mode through the same proxy.
+    Windows from automatically bringing the attached volumes online and
+    also prevents Windows write operations to the volumes. During Direct
+    SAN restore, if the disks are offline, the proxy will attempt bringing the
+    volume online, and verify that it is writeable. In case the operation
+    fails, restore will failover to using NBD mode through the same proxy. 
 
 -   Veeam deploys VMware's VDDK Kit into the backup proxy server, in most
     cases this VDDK Kit coordinates read and write processes (Direct SAN restore) with VMware vSphere allowing VMware's Software to control
