@@ -116,15 +116,20 @@ incremental mode without periodical active full backups enabled.
 
 ### I/O Impact of Reverse Incremental
 
-During the backup process as changed blocks are read from the source VM they are written directly to the VBK file. If this block replaces an existing, older block, that old block is read from the VBK and then written to the VRB file. This means that reverse incremental backups create a 33/66 read-write mix on the target storage during the backup process itself. This I/O typically becomes the limiting factor for backup performance of the job.
+During the backup process as changed blocks are read from the source VM they are written directly to the VBK file.
+If this block replaces an existing, older block, that old block is read from the VBK and then written to the VRB file.
+This means that reverse incremental backups create a 33/66 read-write mix on the target storage during the backup process
+itself. This I/O typically becomes the limiting factor for backup performance of the job. As the rollback is created
+during the backup process itself, backup throughput can be limited by target storage. This slower performance can lead
+to VM snapshots open for longer time.
 
-This can be especially noticeable for VMs with a high random change rate, or when running multiple simultaneous jobs, and is more noticeable on low-end storage or de-duplication appliances.
+This can be especially noticeable for VMs with a high random change rate, or when running multiple simultaneous
+jobs, and is more noticeable on low-end storage or de-duplication appliances.
 
 ### Recommendations on Usage
 
 | Use | Don’t Use |
 |--------|--------|
-|Can be for used when repository storage uses fast disk with caching RAID controllers using large stripe sizes.|Small NAS boxes with limited spindles that depend on software RAID.|
-|Excellent for low change rate VMs, especially large VMs with limited daily change.|Deduplication appliances that use SMB or NFS protocols.|
-||May not be ideal for VMs that create a large amount of change each day as merge times can be significant although this may still be acceptable if the merge finishes in an acceptable time.|
-||As the rollback is created during the backup process itself, backup throughput can be limited by target storage. This slower performance can lead to VM snapshots open for longer time.|
+|When repository storage uses fast disk with caching RAID controllers and large stripe sizes | Small NAS boxes with limited I/O performance |
+|Low change rate VMs, especially large VMs with limited daily change                         | Deduplication appliances due to random I/O nature |
+|                                                                                            | High change rate VMs, as VM snapshot may be open for a long time |
