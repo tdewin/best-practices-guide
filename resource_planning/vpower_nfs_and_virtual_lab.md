@@ -6,7 +6,7 @@ The Virtual Lab appliance operates as a gateway to offer network connectivity be
 
 ![](../media/image15.png)
 
-When a SureBackup job is executed the static routes to reach the masquerated networks are temporarily added to the routing table on the Veeam backup server. To review the routing table, you can open a command prompt on the Veeam backup server and execute:
+When a SureBackup job is executed the static routes to reach the masqueraded networks are temporarily added to the routing table on the Veeam backup server. To review the routing table, you can open a command prompt on the Veeam backup server and execute:
 
 `route print -4`
 
@@ -35,7 +35,7 @@ SureBackup leverages the capabilities of the Virtual Lab appliance to create an 
 
 4.  The SureBackup job waits for IP configuration to be published and stabilized through VMware Tools.
 
-5.  A static route for the configured masquerated networks is added dynamically to the routing table of the Veeam backup server. Those static routes define the IP address of the Virtual Lab appliance as the gateway towards the masquerated networks.
+5.  A static route for the configured masqueraded networks is added dynamically to the routing table of the Veeam backup server. Those static routes define the IP address of the Virtual Lab appliance as the gateway towards the masquerated networks.
 
 ### Booting Virtual Machines
 
@@ -45,7 +45,7 @@ SureBackup leverages the capabilities of the Virtual Lab appliance to create an 
 
 3.  Veeam creates a snapshot for the VMs in order to redirect write operations to a production datastore selected during the Virtual Lab configuration.
 
-4.  If the domain controller role is selected, registry settings are injected in the VM to ensure the NETLOGON service will not shutdown due to missing peer communication.
+4.  If the domain controller role is selected, registry settings are injected in the VM to ensure the NETLOGON service will not shutdown due to missing peer communication.[^1]
 
 5.  VMs are powered on.
 
@@ -68,7 +68,27 @@ proxy appliance.
 
   **Note:** This feature reads the entire backup file, and requires significant time to complete.
 
-If [Linked Jobs](https://helpcenter.veeam.com/backup/vsphere/surebackup_job_joblink_vm.html) are configured for the SureBackup job, linked VMs will start booting once all virtual machines explicitly defined within the Application Group have been successfully booted and verified. Remember that by default  3 VMs are tested at the same time in a Linked Job. There may be more than 3 VMs linked, but the following ones will stay in the testing queue. The limit can be adjusted in the SureBackup job configuration wizard, and may be increased if the backup repository can handle the load accordingly.
+If [Linked Jobs](https://helpcenter.veeam.com/backup/vsphere/surebackup_job_joblink_vm.html) are configured for the SureBackup job,
+linked VMs will start booting once all virtual machines explicitly defined within the Application Group have been successfully booted
+and verified. Remember that by default 3 VMs are tested at the same time in a Linked Job. There may be more than 3 VMs linked,
+but the following ones will stay in the testing queue. The limit can be adjusted in the SureBackup job configuration wizard,
+and may be increased if the backup repository can handle the load accordingly.
+
+### Common Issues
+When performing SureBackup, there are few common issues you may come across. Most of these issues are described 
+in Veeam knowledge base articles:
+
+* When restoring Windows 2008 R2 virtual machines with the VMXNET3 network adapter,
+  the resulting virtual machine obtains a new NIC, and all network settings have to be adjusted manually.
+  The solution is explained in [Veeam KB1570](https://www.veeam.com/kb1570)
+
+* When using DHCP with leases bound to MAC addresses, ensure that the vNIC MAC address is configured as `static`.
+  Otherwise the VM will boot with a MAC in the Virtual Lab, and the VM may get a different IP address >
+  [Setting a static MAC address for a virtual NIC](https://kb.vmware.com/kb/219)
+
+* Some Linux distributions use `udev` for assigning names to NICs. If the MAC address changes during 
+  replication or Instant VM Recovery, the NIC's configuration file may not be applied. For more
+  information, please see [RHEL6 SureBackup](https://forums.veeam.com/vmware-vsphere-f24/rhel6-surebackup-t11681.html#p63750) 
 
 ### Checking SQL Server Database Availability
 A dedicated Visual Basic script is included to allow for testing whether all databases on a given instance are available. This script is available in the Veeam installation folder as the `Veeam.Backup.SqlChecker.vbs` file.
@@ -131,15 +151,17 @@ This mode is especially helpful during an implementation phase while measuring a
 
 ## Virtual Lab in Complex Environments
 
-When using standard vSwitches in a VMware vSphere infrastructure, the Virtual Lab proxy appliance and the isolated networks must run on the same ESXi host. The reason is that standard vSwitches and their port
-groups are bound to one single host. Since the Virtual Lab port groups are isolated by nature, these networks are not known at the core network in
-terms of VLAN tagging or routing.
+When using standard vSwitches in a VMware vSphere infrastructure, the Virtual Lab proxy appliance and the isolated
+networks must run on the same ESXi host ("Basic Single-Host" and "Advanced Single-Host" configurations).
+The reason is that standard vSwitches and their port groups are bound to one single host. Since the Virtual
+Lab port groups are isolated by nature, these networks are not known at the core network in terms of VLAN
+tagging or routing.
 
 When Distributed vSwitch (dvSwitch) is available, port groups can span multiple
-ESXi hosts. Distributed vSwitches are typically required when using Virtual Lab
-for replicas (SureReplica) as replicas will often span multiple hosts. vSphere
-Distributed Resource Scheduler (DRS) may also distribute VMs across multiple
-hosts within a cluster once they are started.
+ESXi hosts ("Advanced Multi-Host" configuration). Distributed vSwitches are typically
+required when using Virtual Lab for replicas (SureReplica) as replicas will often span
+multiple hosts. vSphere Distributed Resource Scheduler (DRS) may also distribute VMs
+across multiple hosts within a cluster once they are started.
 
 **Important!** Please check the following help article and the links at the
 bottom of the webpage before you configure Virtual Labs for Distributed vSwitch:
@@ -160,3 +182,6 @@ For more information, please see the [Backup Server Placement](backup_server_pla
 section of this guide.
 
 ![](../media/image18.png)
+
+[^1]: For more information about Domain Controller restore, please see the corresponding thread in Veeam
+Community Forums > [Veeam B&R v5 recovery of a domain controller](https://forums.veeam.com/veeam-backup-replication-f2/veeam-b-r-v5-recovery-of-a-domain-controller-t7000-105.html#p83808)
