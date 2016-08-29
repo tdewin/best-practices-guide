@@ -10,25 +10,28 @@ you have any questions or comments, please reach out the authors directly, or
 via your local Veeam Software representative.
 
 {% if output.name == "ebook" %}
-As you possess a downloaded version of this e-book, you will notice many references
+
+As you possess a downloaded version of this e-book[^1], you will notice many references
 to external resources for additional information.
 
 The e-book is optimized for
 digital consumption, and the most recent copy is always available at:
 ### [bp.veeam.expert](http://bp.veeam.expert)
 
-This e-book is generated on { gitbook.time }.
-
 {% else %}
+
 Keep in mind this book is optimized for digital consumption, and the most recent version is always
 available on [bp.veeam.expert](http://bp.veeam.expert).
 
 The book is available in different formats here:
 
+
 | Format | Link |
+| -------|------|
 | PDF    | [click here](https://www.gitbook.com/download/pdf/book/poulpreben/veeam-backup-replication-best-practices) |
 | ePub   | [click here](https://www.gitbook.com/download/epub/book/poulpreben/veeam-backup-replication-best-practices) | 
 | Mobi   | [click here](https://www.gitbook.com/download/mobi/book/poulpreben/veeam-backup-replication-best-practices) |
+
 
 {% endif %}
 
@@ -56,3 +59,5 @@ refer to the corresponding
 * Stanislav Simakov ([@ssimakov](https://twitter.com/AndyandtheVMs))
 * Paul Szelesi ([@PSzelesi](https://twitter.com/PSzelesi))
 * Luca Dell'Oca ([@dellock6](https://twitter.com/dellock6))
+
+[^1]: This e-book is generated on {{ gitbook.time }}
