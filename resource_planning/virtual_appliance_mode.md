@@ -27,7 +27,7 @@ then using VMware Hot-Add will likely provide the optimal throughput.
 When planning for the Virtual Appliance mode for a backup proxy
 consider the time required for actual hot-add operations (such as adding
 and removing VM disks from the source virtual machine) it can add up
-to 1-2 minutes per VM. For a backup job containing 1000
+to 1-2 minutes per VM. For a backup job containing 100
 virtual machines this could result in more than two hours of adding and
 removing disks with no actual data processing. To mitigate the issue
 enable parallel processing and process multiple disks from the same

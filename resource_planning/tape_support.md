@@ -34,7 +34,7 @@ The following configuration prerequisites must be met:
 
 ## Tape device support
 
-While the system requirements dictates what tape devices are technically supported,
+While the system requirements dictate what tape devices are technically supported,
 there is a community validated list available on the Veeam forums:
 [Unofficial tape device compatibility list](http://forums.veeam.com/tape-f29/unofficial-tape-library-compatibility-list-t17488.html)
 
@@ -56,7 +56,7 @@ there is a community validated list available on the Veeam forums:
 -   **IBM drivers**: use “non-exclusive” driver setup and start it with
     admininstrative rights.
 
--   **HP drivers**: these are not installable with the downloadad install
+-   **HP drivers**: these are not installable with the downloaded install
 	**.exe** file on a VM (for example, to use with VTL). As a solution,
     run the install **.exe** and choose **Extract**. Use Device Manager
     –&gt; Update driver and  select the drivers for tape drives and
@@ -151,12 +151,12 @@ rules apply:
 
 -   When archiving forward incremental backups, _with_ active
     or synthetic full scheduled, the backup chain on tape will be
-    a copy of the backup chain on disk. The synthetic full option in tape
+    a copy of the backup chain on disk. The virtual full option in tape
     job configuration is ignored.
 
 -   If you archive forward incremental backups without synthetic or active
     full enabled, or archive Backup Copy Jobs, the full files are synthesized
-    from existing restore points on disk. The synthetic full
+    from existing restore points on disk. The virtual full
     backup schedule can be configured on the "Backup to Tape" job. For more
 		information about virtual full to tape, please see
 		[Veeam Help Center](https://helpcenter.veeam.com/backup/vsphere/virtual_full_backup.html).
@@ -205,8 +205,8 @@ discouraged for large jobs. An example of this implementation can be found here:
 ## Using 3<sup>rd</sup> party tape software
 
 As Veeam Backup & Replication tracks and orchestrates all backups
-written to tape, Veeam can recommend use of the native Veeam tape
-features (backup-to-tape and file-to-tape jobs).
+written to tape, Veeam recommends using the built-in Veeam tape
+features (Backups to Tape and Files to Tape jobs).
 
 However, in some situations you may want to use an existing library with
 non-LTO tapes, or you need to integrate Veeam Backup & Replication into

@@ -45,7 +45,7 @@ network subnet:
 -   Can work with both physical and virtual backup proxies.
 
 -   Being the most mature of all transport modes it supports all types
-    of storages.
+    of storage.
 
 -   Is recommended for use in virtual deployments with NFS-based storage
     systems in cases where Direct NFS is unavailable as it helps to minimize VM stunning. See also the “Considerations for NFS Datastores“ section of this guide.
@@ -82,9 +82,9 @@ configuration. See section on DNS at the start of this documented.
 
 ## Recommendations
 
-When you choose the network mode not having to deal with hot-add
-vCenter and ESXi overhead or physical SAN configurations. The network
-mode (NBD) is a very reliable way to do backups. In emergency
+When you choose the network mode, you entirely avoid dealing with hot-add
+vCenter and ESXi overhead or physical SAN configuration. The network
+mode (NBD) is a very fast and reliable way to perform backups. In emergency
 situations when you need fast restore the following tips can be helpful:
 
 -   Consider setting up at least one virtual backup proxy
@@ -99,40 +99,15 @@ situations when you need fast restore the following tips can be helpful:
     Recovery with Storage vMotion (if licensed on the VMware
     vSphere side) as it is not affected by any throughput limitations of VMware.
 
-General recommendations:
+When using NBD for backup, please consider the following:
 
 -   As there is no overhead (like SCSI disk Hot-Add, or search for the
     right volumes in Direct SAN) on backup proxies the Network mode can
     be recommended for scenarios with high-frequency backups or
-    replication jobs, as well for environments with very low overall
+    replication jobs, as well as for environments with very low overall
     data and change rate (VDI).
 
-- 	To protect VMware, Veeam reduces the amount of Network Mode data transport connections to 7. You can add a registry key to Veeam to increase that
-	number.
-
-  **ViHostConcurrentNfcConnections = 7 (or higher) (DWORD)**
-
-  in the
-
-  **
-    HKLM\\SOFTWARE\\Veeam\\Veeam Backup and** **Replication** registry key.
-
-
-  More data connections uses more RAM buffers and the default
-	reserved RAM on ESXi hosts can produce failed jobs. Consider increasing
-	NFC RAM buffer sizes on the ESXi hosts if you increase the above registry
-    setting for example from 16384 to 32768 MB.
-	http://kb.vmware.com/kb/2052302
-    After increasing NFC buffer setting, you can increase the following Veeam Registry setting to add addition Veeam NBD connections:
-  **HKLM\SOFTWARE\VeeaM\Veeam Backup and Replication
-    ViHostConcurrentNfcConnections**
-
-
-  DWORD (decimal)
-  Default: 7
-
-
- Be careful with this setting. If the buffer vs NFC Connection ratio is
-	too aggressive, Jobs may fail.
-
-<!-- AN2016 21.06.2016 -->
+- 	To protect VMware, Veeam reduces the number of permitted NBD connections
+    to 7. Please see the corresponding section in [Interaction with vSphere](./interaction_with_vsphere.md#vcenter-server-connection-count)
+    for more information on how to alter the configuration using registry 
+    keys.

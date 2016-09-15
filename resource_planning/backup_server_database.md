@@ -19,7 +19,7 @@ Backup & Replication setup which is a convenient option for most smaller deploym
 
 It is recommended to install Standard or Enterprise Edition if any of the following apply:
 
--   **When protecting more than 500 VMs**. It is recommended to use Standard or Enterprise versions of Microsoft SQL Server. The max database size is usually sufficient. Veeam Backup & Replication console and job processing may slow down as a result of CPU and RAM constraints on the SQL Server instance.
+-   **When protecting more than 500 VMs**. It is recommended to use Standard or Enterprise versions of Microsoft SQL Server. The max database size allowed by Express Edition is usually sufficient, so do not consider this a constraint. Veeam Backup & Replication console and job processing may however slow down as a result of CPU and RAM constraints on the SQL Server Express instance.
 -   **When using Files to Tape jobs extensively**, the database may grow significantly, and the 10 GB limitation may be exceeded quickly.
 -   **When unable to configure an external staging server**. For Veeam Explorer for Microsoft SQL Server or Veeam Explorer for Microsoft SharePoint. When working with databases larger than 10 GB, SQL Server Express cannot mount the databases.
 -   **When databases are using advanced features of Microsoft SQL Server**. Such as encryption or table partitioning, the licensing level of the staging server (local or remote) must match the level of the original instance.

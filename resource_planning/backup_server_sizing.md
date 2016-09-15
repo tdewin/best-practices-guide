@@ -14,7 +14,7 @@ It is recommended to group multiple virtual machines into a single job for bette
 All configuration and session information is stored in the configuration database. In larger environments the load on the SQL Server hosting the configuration database may be significant and is highly dependent on the amount of concurrently running jobs. For more information please see the [Backup Server Database](resource_planning/backup_server_database.md) section of this guide.
 
 ## Operating system
-The Veeam backup server requires Microsoft Windows 2008 R2 or later.
+The Veeam backup server requires Microsoft Windows 2008 R2 or later (64-bit only).
 The latest supported version of Windows OS is always recommended (currently
 Microsoft Windows 2012 R2) as it will also support restoring from virtual
 machines with ReFS file systems or Windows Server Deduplication enabled.
@@ -32,7 +32,7 @@ The folders are detailed here as follows:
 ### Installation folder
 Default location is `C:\Program Files\Veeam\Backup and Replication`
 
-Plan for 40 GB. If installing in a virtual machine, thin disks may be used. By default the installer will choose the biggest drive space for the built in backup repository.
+Plan for 40 GB. If installing in a virtual machine, thin disks may be used. By default the installer will choose the drive with most available free space for the built in backup repository.
 
 ### Log files
 Default location is `C:\ProgramData\Veeam\Backup`

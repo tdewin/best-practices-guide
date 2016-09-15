@@ -120,10 +120,6 @@ the following registry key:
 -   Type: REG_DWORD
 -   Default value: 4
 
-Please note that enabling [Storage Latency Control](#storage-latency-control) will override the registry
-setting, as the snapshot threshold will instead adjust itself dynamically
-according to current storage latency.
-
 ### Snapshot Open
 Simply having a snapshot open for a running VM involves some performance
 penalty on the VM, the ESX(i) host and the underlying storage. The host
@@ -217,7 +213,7 @@ recommendations:
 
 -   **Design datastores with enough IOPS to support snapshots.**
     Snapshots create additional I/O load and thus require enough I/O
-    headroom to support the added load of snapshots. This is especially
+    headroom to support the added load. This is especially
     important for VMs with moderate to heavy transactional workloads.
     Creating snapshots in VMware vSphere will cause the snapshot files
     to be placed on the same VMFS volumes as the individual VM disks.
@@ -298,6 +294,23 @@ The issue is recognized by VMware and documented in
 processing modes and Veeam Backup from Storage Snapshots on NetApp NFS datastores.
 We highly recommend you to use one of these 2 backup modes to avoid problems.
 
+In hyperconverged infrastructures (HCI), it is preferred to keep the datamover
+close the the backed up VM to avoid stressing the storage 
+replication network with backup traffic. If the HCI is providing storage via
+the NFS protocol (such as Nutanix or Cisco HyperFlex), it is possible to
+force a Direct NFS data mover on the same host using the following registry key:
+
+-   Path: `HKEY_LOCAL_MACHINE\SOFTWARE\Veeam\Veeam Backup and Replication`
+-   Key: `EnableSameHostDirectNFSMode`
+-   Type: REG_DWORD
+-   Default value: 0 _(disabled)_
+
+    **Value = 1** - when a proxy is available on the same host, Veeam Backup &
+    Replication will leverage it. If the proxy is busy, Veeam Backup &
+    Replication will wait for its availability; if it becomes
+    unavailable, Veeam Backup & Replication will switch
+    to NBD mode.
+
 If for what ever reason Direct NFS processing can not be used and HotAdd
 is configured, ensure that proxies running in the Virtual
 Appliance mode (Hot-Add) are on the same host as the protected VMs.
@@ -313,13 +326,13 @@ VMs, you can create the following registry key:
     **Value  = 1** – when proxy A is available on the same host, Veeam Backup &
     Replication will leverage it. If proxy A is busy, Veeam Backup &
     Replication will wait for its availability; if it becomes
-    unreachable for some reason, another Hot-Add proxy (proxy B) will be
+    unavailable, another Hot-Add proxy (proxy B) will be
     used.
 
     **Value = 2** - when proxy A is available on the same host, Veeam Backup &
     Replication will leverage it. If proxy A is busy, Veeam Backup &
     Replication will wait for its availability; if it becomes
-    unreachable for some reason, Veeam Backup & Replication will switch
+    unavailable, Veeam Backup & Replication will switch
     to NBD mode.
 
 This solution will typically result in deploying a significant number of
@@ -492,7 +505,7 @@ datastores, and resource groups. Because of this level of interaction,
 it is generally recommended that Veeam Backup & Replication uses an
 account with full administrative permissions.
 
-However, in some environments full administrative permissions is not
+However, in some environments full administrative permissions are not
 desirable or permitted. For those environments, Veeam has identified the
 minimum permissions required for the various software functions. Review
 the ["Required Permissions" document](https://www.veeam.com/veeam_backup_9_0_permissions_pg.pdf) and

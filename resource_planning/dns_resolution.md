@@ -6,9 +6,10 @@ lookups. If not some Veeam components may not work correctly.
 
 If DNS resolution is not available you may add VMware vCenter, ESXi and managed Veeam servers to the local `hosts` file on _all_ managed Veeam servers. When using this workaround it is recommended to add both short name and fully qualified domain name in the `hosts` file. DNS should be the preferred option.
 
-When ESXi hosts are added to vCenter it is recommended to use FQDN. When using Network Backup mode the FQDN
+When ESXi hosts are added to vCenter it is recommended to use FQDN. When backing up using "network"
+transport mode (NBD), the FQDN
 is returned via VMware API for Data Protection (VADP) so the backup proxy server must be able to
-resolve the FQDN via DNS. Using the `hosts` file the data transport path can be altered for Network Backup mode transfers.
+resolve the FQDN via DNS. Using the `hosts` file the data transport path can be altered for NBD transfers.
 
 Please see the below example.
 

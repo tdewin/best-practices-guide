@@ -6,7 +6,7 @@ arrays are currently supported:
 * HPE StoreVirtual (LeftHand)
 * HPE StoreServ (3PAR)
 * NetApp Data ONTAP (FAS, V-Series and IBM N series)
-* EMC VNX, VNXe and Unity
+* EMC VNX, VNXe and Unity[^1]
 
 Licensing and system requirements are described in the Veeam User Guide:
 [Backup from Storage Snapshots](https://helpcenter.veeam.com/backup/vsphere/backup_from_storage_snapshots.html).
@@ -53,7 +53,7 @@ this section, we will go through the steps performed.
 
 ![Backup from Storage Snapshots - VMs per storage snapshot](./backup_from_storage_snapshots_6.png)
 
-When adding large amounts of virtual machines to a job, by default steps
+When adding a large number of virtual machines to a job, by default steps
 1 and 2 (above) are repeated until all virtual machines within the job have
 successfully completed. Only then will BfSS proceed to step 3 and issue the
 storage snapshot. If adding 100s of jobs to a backup or replication job, this
@@ -94,7 +94,7 @@ the following configuration requirements must be met:
 **Backup server** must have access to the management interfaces of
 the storage array. All additional prerequisites such as LUN mappings, creation
 of initiator groups for iSCSI, altering NFS exports and snapshot management
-is subsequently handled via this connection.
+are subsequently handled via this connection.
 
 **Backup proxy servers** must be
 able to directly access the storage array via the same protocol used for
@@ -129,3 +129,5 @@ report in Veeam Availability Suite, you may quickly identify such VMs.
 VMs with either virtual or physical Raw Device Mapping (RDM)
 are not supported with BfSS. Such VMs will failover to backing up via
 standard methods if allowed in the job settings.
+
+[^1]: EMC Unity is supported starting Veeam Backup & Replication 9.0 Update 2 ([KB2147](https://www.veeam.com/kb2147))
