@@ -11,7 +11,7 @@ The minimum recommendation is 2 CPU cores and 8 GB RAM.
 
 It is recommended to group multiple virtual machines into a single job for better efficiency and resource usage. With default configuration it is recommended to configure around 30 VMs per job. The recommendation can be increased by over 10x (300+ VMs) by leveraging additional features such as [per VM backup files](./repository_planning_pervm.md). Please refer to the [Job Configuration](../job_configuration/backup_job.md) section of this guide to learn more about job design.
 
-All configuration and session information is stored in the configuration database. In larger environments the load on the SQL Server hosting the configuration database may be significant and is highly dependent on the amount of concurrently running jobs. For more information please see the [Backup Server Database](./resource_planning/backup_server_database.md) section of this guide.
+All configuration and session information is stored in the configuration database. In larger environments the load on the SQL Server hosting the configuration database may be significant and is highly dependent on the amount of concurrently running jobs. For more information please see the [Backup Server Database](./backup_server_database.md) section of this guide.
 
 ## Operating system
 The Veeam backup server requires Microsoft Windows 2008 R2 or later (64-bit only).
