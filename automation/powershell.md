@@ -36,6 +36,17 @@ To get help with a cmdlet, refer to the [documentation online](https://helpcente
 Get-help Set-VBRJobSchedule -full
 ```
 
+Starting from v9 you can connect to a remote server (when you install the local console). You can use the connect-vbrserver CMDlet to make the initial connection. All subsequent CMDlet will be execute against the connected server. If you run on the backup server itself, and you load the snapin, a connect will be made to the local backup server
+
+Manually connecting to the local server
+```
+Connect-VBRServer -server 127.0.0.1
+```
+
+Disconnecting (so you can connect to another server)
+```
+Disconnect-VBRServer
+```
 
 
 ## Discover undocumented/unsupported properties and methods
@@ -80,6 +91,8 @@ In the case of a JobType, the enum is called "Veeam.Backup.Model.EDbJobType". To
 
 When you start working with Backups, immediately you will notice there is a difference between a job and a backup itself. The job is in essence a collection of configuration data and scheduling info. The backup is the result of a backup job running. Notice that there are different types of Jobs under the node. For example Backups job, Replica jobs, etc. The meta data describing a job run is called a session. This is reflected in GUI but might not be apparent. When you open the GUI, in the "Backup & Replication" section, you will see in the left panel the "job" node (including other job types) and the "backup" node containing all your backups. For sessions, you have a complete separate section called "History".
 
+**What is quite important that in Powershell often VSS is used instead of Application Aware Image Processing (AAIP). This can be quite confusing, if you are looking for AAIP settings. This stems from earlier versions of B&R where AAIP was focused on VSS only**
+
 ![](psmapping.png)
 
 In powershell this means that objects also have been split up in separate objects. To execute "Job" manipulations, you will work on the "VBRJob" object. To discover only cmdlets related to "VBRJob" execute:
@@ -101,7 +114,7 @@ Get-VBRJob | Where { $_.JobType -eq "Backup" }
 Common Jobtypes are
 * Backup : Backup
 * Replica : Replica
-* Backup Copy Job = BackupSync
+* Backup Copy Job : BackupSync
 
 The fact that Get-VBRJob returns all kind of type jobs can be confusing. Sometimes, you might try to update a property which makes no sense for the type you are working on. This might lead to error or worse, invalid configurations
 
@@ -122,7 +135,7 @@ To edit the job, you will first need to acquire the JobSettings. There are speci
 Get-Command -Module Veeampssnapin | where { $_.noun -match "VBRJob" }
 ```
 
-JobSettings are catagorised in different sections that loosely correspond to
+JobSettings are categorized in different sections that loosely correspond to
 * VBRJobObject : Section Virtual Machines
 * VBRJobProxy : Section Storage > Backup Proxy
 * VBRJobAdvancedBackupOptions : Section Storage > Button Advanced  > Tab Backup
@@ -141,7 +154,8 @@ JobSettings are catagorised in different sections that loosely correspond to
 
 Editing the options depends a bit on the CMDlet you are using. There are 4 main catagories.
 
-**Get / Set Method**
+#### Get / Set Method
+
 This is probably the oldest method and allows you the most flexibility. First start by getting the specific options you want to edit. Than modify the settings. Finally apply the new settings. For example, you want to edit the retention. First start by getting the VBRJobOptions
 
 ```
@@ -158,13 +172,217 @@ Now lets apply the settings
 $updatedjob = Set-VBRJobOptions -Job $backupjob -Options $joboptions
 ```
 
-Get / Set Pairs are:
+**Get / Set Pairs are:**
 * Get-VBRJobOptions / Set-VBRJobOptions
 * Get-VBRJobVSSOptions / Set-VBRJobVssOptions
 * Get-VBRJobObjectVssOptions / Set-VBRJobObjectVssOptions
 * Get-VBRJobScheduleOptions / Set-VBRJobScheduleOptions
 
-**Inline edits**
+
+VBRJobOptions has actually most options that you can edit on the job. Some of the edit's can be done more easily by doing the inline edits. Just for a reference, here is a dump of v9.5 options and suboptions
+
+* $options.BackupStorageOptions
+  * $options.BackupStorageOptions.BackupIsAttached
+  * $options.BackupStorageOptions.CheckRetention
+  * $options.BackupStorageOptions.CompressionLevel
+  * $options.BackupStorageOptions.EnableDeduplication
+  * $options.BackupStorageOptions.EnableDeletedVmDataRetention
+  * $options.BackupStorageOptions.EnableFullBackup
+  * $options.BackupStorageOptions.EnableIntegrityChecks
+  * $options.BackupStorageOptions.KeepFirstFullBackup
+  * $options.BackupStorageOptions.RetainCycles
+  * $options.BackupStorageOptions.RetainDays
+  * $options.BackupStorageOptions.StgBlockSize
+  * $options.BackupStorageOptions.StorageEncryptionEnabled
+* $options.BackupTargetOptions
+  * $options.BackupTargetOptions.Algorithm
+  * $options.BackupTargetOptions.FullBackupDays
+  * $options.BackupTargetOptions.FullBackupMonthlyScheduleOptions
+  * $options.BackupTargetOptions.FullBackupScheduleKind
+  * $options.BackupTargetOptions.TransformFullToSyntethic
+  * $options.BackupTargetOptions.TransformIncrementsToSyntethic
+  * $options.BackupTargetOptions.TransformToSyntethicDays
+* $options.CloudReplicaTargetOptions
+  * $options.CloudReplicaTargetOptions.CloudConnectHost
+  * $options.CloudReplicaTargetOptions.CloudConnectStorage
+* $options.FailoverPlanOptions
+  * $options.FailoverPlanOptions.PostCommandLine
+  * $options.FailoverPlanOptions.PostEnabled
+  * $options.FailoverPlanOptions.PreCommandLine
+  * $options.FailoverPlanOptions.PreEnabled
+* $options.GenerationPolicy
+  * $options.GenerationPolicy.ActualRetentionRestorePoints
+  * $options.GenerationPolicy.CompactFullBackupDays
+  * $options.GenerationPolicy.CompactFullBackupMonthlyScheduleOptions
+  * $options.GenerationPolicy.CompactFullBackupScheduleKind
+  * $options.GenerationPolicy.DeletedVmsDataRetentionPeriodDays
+  * $options.GenerationPolicy.EnableCompactFull
+  * $options.GenerationPolicy.EnableCompactFullLastTime
+  * $options.GenerationPolicy.EnableDeletedVmDataRetention
+  * $options.GenerationPolicy.EnableRechek
+  * $options.GenerationPolicy.GFSIsReadEntireRestorePoint
+  * $options.GenerationPolicy.GFSMonthlyBackups
+  * $options.GenerationPolicy.GFSQuarterlyBackups
+  * $options.GenerationPolicy.GFSRecentPoints
+  * $options.GenerationPolicy.GFSWeeklyBackups
+  * $options.GenerationPolicy.GFSYearlyBackups
+  * $options.GenerationPolicy.IsGfsActiveFullEnabled
+  * $options.GenerationPolicy.KeepGfsBackup
+  * $options.GenerationPolicy.MonthlyBackup
+  * $options.GenerationPolicy.QuarterlyBackup
+  * $options.GenerationPolicy.RecheckBackupMonthlyScheduleOptions
+  * $options.GenerationPolicy.RecheckDays
+  * $options.GenerationPolicy.RecheckScheduleKind
+  * $options.GenerationPolicy.RecoveryPointObjectiveUnit
+  * $options.GenerationPolicy.RecoveryPointObjectiveValue
+  * $options.GenerationPolicy.RetentionPolicyType
+  * $options.GenerationPolicy.SimpleRetentionRestorePoints
+  * $options.GenerationPolicy.SyncIntervalStartTime
+  * $options.GenerationPolicy.WeeklyBackupDayOfWeek
+  * $options.GenerationPolicy.WeeklyBackupTime
+  * $options.GenerationPolicy.YearlyBackup
+* $options.HvNetworkMappingOptions
+  * $options.HvNetworkMappingOptions.NetworkMapping
+* $options.HvReplicaTargetOptions
+  * $options.HvReplicaTargetOptions.EnableInitialPass
+  * $options.HvReplicaTargetOptions.InitialPassDir
+  * $options.HvReplicaTargetOptions.InitialSeeding
+  * $options.HvReplicaTargetOptions.ReplicaNameSuffix
+  * $options.HvReplicaTargetOptions.TargetFolder
+  * $options.HvReplicaTargetOptions.UseNetworkMapping
+  * $options.HvReplicaTargetOptions.UseReIP
+  * $options.HvReplicaTargetOptions.UseVmMapping
+* $options.HvSourceOptions
+  * $options.HvSourceOptions.CanDoCrashConsistent
+  * $options.HvSourceOptions.DirtyBlocksNullingEnabled
+  * $options.HvSourceOptions.EnableHvQuiescence
+  * $options.HvSourceOptions.ExcludeSwapFile
+  * $options.HvSourceOptions.FailoverToOnHostBackup
+  * $options.HvSourceOptions.GroupSnapshotProcessing
+  * $options.HvSourceOptions.OffHostBackup
+  * $options.HvSourceOptions.UseChangeTracking
+* $options.JobOptions
+  * $options.JobOptions.BackupCopyJobCanRunAnyTime
+  * $options.JobOptions.RunManually
+  * $options.JobOptions.SourceProxyAutoDetect
+  * $options.JobOptions.TargetProxyAutoDetect
+  * $options.JobOptions.UseWan
+* $options.JobScriptCommand
+  * $options.JobScriptCommand.Days
+  * $options.JobScriptCommand.Frequency
+  * $options.JobScriptCommand.Periodicity
+  * $options.JobScriptCommand.PostCommand
+  * $options.JobScriptCommand.PostScriptCommandLine
+  * $options.JobScriptCommand.PostScriptEnabled
+  * $options.JobScriptCommand.PreCommand
+  * $options.JobScriptCommand.PreScriptCommandLine
+  * $options.JobScriptCommand.PreScriptEnabled
+* $options.NotificationOptions
+  * $options.NotificationOptions.EmailNotificationAdditionalAddresses
+  * $options.NotificationOptions.EmailNotificationSubject
+  * $options.NotificationOptions.EmailNotifyOnError
+  * $options.NotificationOptions.EmailNotifyOnLastRetryOnly
+  * $options.NotificationOptions.EmailNotifyOnSuccess
+  * $options.NotificationOptions.EmailNotifyOnWaitingTape
+  * $options.NotificationOptions.EmailNotifyOnWarning
+  * $options.NotificationOptions.SendEmailNotification2AdditionalAddresses
+  * $options.NotificationOptions.SnmpNotification
+  * $options.NotificationOptions.UseCustomEmailNotificationOptions
+* $options.Options
+  * $options.Options.RootNode
+* $options.ReIPRulesOptions
+  * $options.ReIPRulesOptions.Rules
+* $options.ReplicaSourceOptions
+  * $options.ReplicaSourceOptions.Backup2Vi
+* $options.SanIntegrationOptions
+  * $options.SanIntegrationOptions.Failover2StorageSnapshotBackup
+  * $options.SanIntegrationOptions.FailoverFromSan
+  * $options.SanIntegrationOptions.MultipleStorageSnapshotEnabled
+  * $options.SanIntegrationOptions.MultipleStorageSnapshotVmsCount
+  * $options.SanIntegrationOptions.NimbleSnapshotSourceEnabled
+  * $options.SanIntegrationOptions.NimbleSnapshotSourceRetention
+  * $options.SanIntegrationOptions.NimbleSnapshotTransferAsBackupSource
+  * $options.SanIntegrationOptions.NimbleSnapshotTransferEnabled
+  * $options.SanIntegrationOptions.NimbleSnapshotTransferRetention
+  * $options.SanIntegrationOptions.SanSnapshotBackupBackupSource
+  * $options.SanIntegrationOptions.SanSnapshotBackupTransferEnabled
+  * $options.SanIntegrationOptions.SanSnapshotBackupTransferRetention
+  * $options.SanIntegrationOptions.SanSnapshotReplicaBackupSource
+  * $options.SanIntegrationOptions.SanSnapshotReplicaTransferEnabled
+  * $options.SanIntegrationOptions.SanSnapshotReplicaTransferRetention
+  * $options.SanIntegrationOptions.SanSnapshotSourceEnabled
+  * $options.SanIntegrationOptions.SanSnapshotSourceRetention
+  * $options.SanIntegrationOptions.UseSanSnapshots
+* $options.SqlLogBackupOptions
+  * $options.SqlLogBackupOptions.BackupIntervalUnit
+  * $options.SqlLogBackupOptions.BackupIntervalValue
+  * $options.SqlLogBackupOptions.DailyRetentionDays
+  * $options.SqlLogBackupOptions.RetentionType
+  * $options.SqlLogBackupOptions.StorageIntervalUnit
+  * $options.SqlLogBackupOptions.StorageIntervalValue
+* $options.ViCloudReplicaTargetOptions
+  * $options.ViCloudReplicaTargetOptions.CloudConnectDatastore
+  * $options.ViCloudReplicaTargetOptions.CloudConnectHost
+  * $options.ViCloudReplicaTargetOptions.Enabled
+* $options.ViNetworkMappingOptions
+  * $options.ViNetworkMappingOptions.NetworkMapping
+* $options.ViReplicaTargetOptions
+  * $options.ViReplicaTargetOptions.ClusterName
+  * $options.ViReplicaTargetOptions.ClusterReference
+  * $options.ViReplicaTargetOptions.DatastoreHDTargetType
+  * $options.ViReplicaTargetOptions.DatastoreName
+  * $options.ViReplicaTargetOptions.DatastoreReference
+  * $options.ViReplicaTargetOptions.DatastoreRootPath
+  * $options.ViReplicaTargetOptions.DiskCreationMode
+  * $options.ViReplicaTargetOptions.EnableDigests
+  * $options.ViReplicaTargetOptions.EnableInitialPass
+  * $options.ViReplicaTargetOptions.HostReference
+  * $options.ViReplicaTargetOptions.InitialPassDir
+  * $options.ViReplicaTargetOptions.InitialSeeding
+  * $options.ViReplicaTargetOptions.PbmProfileId
+  * $options.ViReplicaTargetOptions.ReplicaNamePrefix
+  * $options.ViReplicaTargetOptions.ReplicaNameSuffix
+  * $options.ViReplicaTargetOptions.ReplicaTargetResourcePoolName
+  * $options.ViReplicaTargetOptions.ReplicaTargetResourcePoolRef
+  * $options.ViReplicaTargetOptions.ReplicaTargetVmFolderName
+  * $options.ViReplicaTargetOptions.ReplicaTargetVmFolderRef
+  * $options.ViReplicaTargetOptions.UseNetworkMapping
+  * $options.ViReplicaTargetOptions.UseReIP
+  * $options.ViReplicaTargetOptions.UseVmMapping
+* $options.ViSourceOptions
+  * $options.ViSourceOptions.BackupTemplates
+  * $options.ViSourceOptions.BackupTemplatesOnce
+  * $options.ViSourceOptions.DirtyBlocksNullingEnabled
+  * $options.ViSourceOptions.EnableChangeTracking
+  * $options.ViSourceOptions.EncryptLanTraffic
+  * $options.ViSourceOptions.ExcludeSwapFile
+  * $options.ViSourceOptions.FailoverToNetworkMode
+  * $options.ViSourceOptions.SetResultsToVmNotes
+  * $options.ViSourceOptions.UseChangeTracking
+  * $options.ViSourceOptions.VCBMode
+  * $options.ViSourceOptions.VDDKMode
+  * $options.ViSourceOptions.VmAttributeName
+  * $options.ViSourceOptions.VmNotesAppend
+  * $options.ViSourceOptions.VMToolsQuiesce
+
+This was generated via the following PScode (if you are running on a higher/lower version this could be userful)
+```
+$options = Get-VBRJobOptions -job @(Get-VBRJob | where { $_.JobType -eq "Backup" })[0]
+$members = $options | gm -MemberType Property  | % { $_.Name }
+foreach ($member in $members)
+{
+ Write-host (("* `$options.{0}") -f $member)
+ $suboptions = $options."$member"
+ $submembers = $suboptions | gm -MemberType Property | % { $_.Name }
+ foreach ($submember in $submembers)
+ {
+  Write-host (("  * `$options.{0}.{1}") -f $member,$submember)
+ }
+}
+```
+
+#### Inline edits
+
 Because the inline methods are sometimes cumbersome to use, inline methods have been added that allow you to edit some settings directly. Let's take for example the schedule options. You can use Set-VBRJobSchedule directly without first querying it's current settings.
 
 For example, let's set a job to run only on a daily basis
@@ -188,7 +406,8 @@ Inline edits:
 * Set-VBRJobAdvancedViOptions
 * Set-VBRJobSchedule
 
-**Enable / Disable**
+#### Enable / Disable
+
 Some edits are just enable or disabling a feature. For example enabling AAIP is really just a checkbox in the GUI. In Powershell, you can use Enable-VBRJobVSSIntegration
 ```
 Enable-VBRJobVSSIntegration -Job $backupjob
@@ -200,7 +419,8 @@ Enable / Disable Pairs are:
 * Enable-VBRJobSchedule / Disable-VBRJobSchedule
 * Enable-VBRJobVSSIntegration / Disable-VBRJobVSSIntegration
 
-**Adding and removing job objects**
+#### Adding and removing job objects
+
 Add Job Objects (VM, Resource Pools, etc.) are more complicated. They require you to first find the object and then use the specific CMDlet
 
 Important, there are Hypervisor specific calls (Add-VBRViJobObject/Add-VBRHvJobObject) and none Hypervisor specific (Add-VBRJobObject). Please avoid using none specific calls (Add-VBRJobObject) as they are [deprecated](https://helpcenter.veeam.com/backup/powershell/obsolete_cmdlets.html) and might be removed in future versions
@@ -232,13 +452,58 @@ Remove-VBRJobObject -Objects $jobobject
 ```
 
 ### Creating new jobs
+Still need to write stuff here
 
 ### Frequently Asked Examples
 
-** Enable bitlooker **
+#### Run code on every job
+Although this is basic powershell, here is a basic scelleton for changing a setting on every job
+```
+$Jobs =  Get-VBRJob | where {$_.JobType -eq "Backup" -or $_.JobType -eq "Replica"}
+foreach ($Job in $Jobs)
+{
+  #Take action on a $Job here
+}
+```
 
-** Changing compression settings **
+For example to change the Blocksize on every job after you have loaded the snapin
 
+```
+$Jobs =  Get-VBRJob | where {$_.JobType -eq "Backup" -or $_.JobType -eq "Replica"}
+foreach ($Job in $Jobs)
+{
+  $Options = Get-VBRJobOptions -Job $Job
+  $Options.BackupStorageOptions.StgBlockSize  = [Veeam.Backup.Common.EKbBlockSize]::KbBlockSize1024
+  $null = Set-VBRJobOptions -Job $job -Options $options
+}
+```
+
+#### Enable bitlooker
+Refer to "Run code on every Job" if you want to edit multiple jobs at the same time
+```
+$Job = get-vbrjob -name "Backup job 1"
+$Options = Get-VBRJobOptions -Job $Job
+$Options.ViSourceOptions.DirtyBlocksNullingEnabled = $True
+$null = Set-VBRJobOptions -Job $job -Options $options
+```
+#### Changing block settings
+Refer to "Run code on every Job" if you want to edit multiple jobs at the same time
+```
+$Job = get-vbrjob -name "Backup job 1"
+$Options = Get-VBRJobOptions -Job $Job
+$Options.BackupStorageOptions.StgBlockSize  = [Veeam.Backup.Common.EKbBlockSize]::KbBlockSize1024
+$null = Set-VBRJobOptions -Job $job -Options $options
+```
+
+#### Changing compression settings
+Refer to "Run code on every Job" if you want to edit multiple jobs at the same time
+```
+$Job = get-vbrjob -name "Backup job 1"
+$Options = Get-VBRJobOptions -Job $Job
+# 0 = none, 4 = dedup friendly, 5 = optimal, 6 = high, 9 = extreme
+$options.BackupStorageOptions.Compressionlevel = 0
+$null = Set-VBRJobOptions -Job $job -Options $options
+```
 
 ## Working with Backups
 To get the  backups for that specific job, you can use
