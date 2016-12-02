@@ -178,7 +178,7 @@ $updatedjob = Set-VBRJobOptions -Job $backupjob -Options $joboptions
 * Get-VBRJobObjectVssOptions / Set-VBRJobObjectVssOptions
 * Get-VBRJobScheduleOptions / Set-VBRJobScheduleOptions
 
-This style of setting options has the most flexibility because you edit 99% of all parameters. However, it is also more tricky because discovery is less straight forward. You can not use get-help to find out how to set certain parameters. For your convenience, you can find a reference to a compelete set of dumps on [https://github.com/veeamhub/best-practices-guide/automation/powershell_dumps.md](./powershell_dumps.md)
+This style of setting options has the most flexibility because you edit 99% of all parameters. However, it is also more tricky because discovery is less straight forward. You can not use get-help to find out how to set certain parameters. For your convenience, you can find a reference to a compelete set of dumps on [Veeamhub](https://github.com/VeeamHub/powershell/tree/master/Dump-VBRObject)
 
 
 
